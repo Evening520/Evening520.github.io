@@ -1,286 +1,505 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evening 乐器行 — 每一件都是艺术品</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg: #0a0a0c;
+  --surface: #141418;
+  --gold: #c8a45c;
+  --gold-light: #e0c88e;
+  --text: #e8e4dd;
+  --text-dim: #8a8580;
+  --border: #222;
+  --danger: #c0392b;
+}
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-<link rel="stylesheet" href="/css/main.css">
+/* Header */
+header {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  background: rgba(10,10,12,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-size: 22px; font-weight: 700; letter-spacing: 1px;
+  color: var(--gold); text-decoration: none;
+}
+.logo span { color: var(--text-dim); font-weight: 300; margin-left: 6px; }
+nav { display:flex; gap:32px; align-items:center; }
+nav a {
+  color: var(--text-dim); text-decoration: none; font-size:14px;
+  transition: color 0.2s; letter-spacing: 0.5px;
+}
+nav a:hover, nav a.active { color: var(--gold); }
 
+.cart-btn {
+  position:relative; background:none; border:none; color:var(--text);
+  font-size:20px; cursor:pointer; padding:8px;
+}
+.cart-count {
+  position:absolute; top:0; right:0; background:var(--gold);
+  color:var(--bg); font-size:11px; width:18px; height:18px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-weight:700; display:none;
+}
+.cart-count.show { display:flex; }
 
+/* Hero */
+.hero {
+  height: 100vh; min-height:600px;
+  background: linear-gradient(135deg, #0a0a0c 0%, #1a1510 40%, #0d0a06 70%, #0a0a0c 100%);
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background: url('https://images.unsplash.com/photo-1520523839897-bd0b52f1e670?w=1920&q=80') center/cover;
+  opacity:0.18; filter: brightness(0.6);
+}
+.hero-content {
+  position:relative; z-index:1; text-align:center; max-width:800px; padding:20px;
+}
+.hero-content h1 {
+  font-size: clamp(32px, 5vw, 60px); font-weight: 300;
+  letter-spacing: 4px; margin-bottom: 20px; color: #fff;
+}
+.hero-content h1 strong { color: var(--gold); font-weight: 600; }
+.hero-content p {
+  font-size: 18px; color: var(--text-dim); margin-bottom: 40px; letter-spacing: 2px;
+}
+.hero-btn {
+  display:inline-block; padding:14px 48px; border: 1.5px solid var(--gold);
+  color: var(--gold); text-decoration: none; letter-spacing: 2px;
+  font-size:14px; transition: all 0.3s; text-transform: uppercase;
+}
+.hero-btn:hover { background: var(--gold); color: var(--bg); }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+/* Sections */
+section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+.section-title {
+  text-align: center; margin-bottom: 60px;
+}
+.section-title h2 {
+  font-size: 32px; font-weight: 300; letter-spacing: 3px; color: #fff;
+}
+.section-title h2 strong { color: var(--gold); font-weight: 600; }
+.section-title p { color: var(--text-dim); margin-top: 10px; font-size: 15px; }
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.hayasaka.eu.org","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.23.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+/* Category filter */
+.filters { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:40px; }
+.filter-btn {
+  padding: 8px 24px; border: 1px solid var(--border); background: transparent;
+  color: var(--text-dim); cursor: pointer; font-size:13px; letter-spacing:1px;
+  transition: all 0.2s; border-radius: 2px;
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--gold); color: var(--gold);
+}
 
-    <meta name="description" content="Sakura最好了&#39;&#39;">
-<meta property="og:type" content="website">
-<meta property="og:title" content="晴子の小窝">
-<meta property="og:url" content="https://www.hayasaka.eu.org/index.html">
-<meta property="og:site_name" content="晴子の小窝">
-<meta property="og:description" content="Sakura最好了&#39;&#39;">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="Hayasaka Ai">
-<meta name="twitter:card" content="summary">
+/* Products Grid */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+.product-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden; transition: all 0.35s;
+  cursor: pointer; position: relative;
+}
+.product-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+.product-card:hover .product-img { transform: scale(1.04); }
+.product-img-wrap { overflow:hidden; height:240px; }
+.product-img {
+  width:100%; height:100%; object-fit:cover; transition: transform 0.5s;
+}
+.product-badge {
+  position:absolute; top:16px; right:16px; background:var(--gold);
+  color:var(--bg); font-size:11px; padding:4px 10px; font-weight:700;
+  letter-spacing:1px; border-radius:2px;
+}
+.product-info { padding: 20px; }
+.product-brand { font-size:11px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; }
+.product-name { font-size: 17px; margin: 6px 0; color: #fff; font-weight: 500; }
+.product-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 12px; line-height: 1.5; }
+.product-footer { display:flex; justify-content:space-between; align-items:center; }
+.product-price { font-size: 22px; font-weight: 700; color: var(--gold-light); }
+.product-price .yuan { font-size: 14px; font-weight: 400; }
+.product-rating { color: #f0c040; font-size: 13px; }
+.add-cart-btn {
+  width:100%; padding:12px; background: transparent; border: 1px solid var(--gold);
+  color: var(--gold); cursor:pointer; font-size:13px; letter-spacing:2px;
+  margin-top:12px; transition: all 0.3s; text-transform:uppercase;
+}
+.add-cart-btn:hover { background: var(--gold); color: var(--bg); }
 
+/* Cart Sidebar */
+.cart-overlay {
+  position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6);
+  z-index:200; opacity:0; pointer-events:none; transition:opacity 0.3s;
+}
+.cart-overlay.open { opacity:1; pointer-events:auto; }
+.cart-sidebar {
+  position:fixed; top:0; right:-420px; width:100%; max-width:400px; height:100%;
+  background:var(--surface); z-index:201; transition:right 0.35s;
+  display:flex; flex-direction:column; border-left:1px solid var(--border);
+}
+.cart-sidebar.open { right:0; }
+.cart-header {
+  padding:20px 24px; border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.cart-header h3 { font-weight:400; letter-spacing:2px; font-size:16px; }
+.cart-close {
+  background:none; border:none; color:var(--text-dim); font-size:24px;
+  cursor:pointer; transition:color 0.2s;
+}
+.cart-close:hover { color:var(--danger); }
+.cart-items { flex:1; overflow-y:auto; padding:16px 24px; }
+.cart-item {
+  display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border);
+  align-items:center;
+}
+.cart-item-img { width:60px; height:60px; object-fit:cover; border-radius:2px; }
+.cart-item-info { flex:1; }
+.cart-item-name { font-size:14px; color:#fff; }
+.cart-item-price { font-size:13px; color:var(--gold-light); margin-top:4px; }
+.cart-item-qty {
+  display:flex; align-items:center; gap:8px; margin-top:6px;
+}
+.qty-btn {
+  width:24px; height:24px; border:1px solid var(--border); background:transparent;
+  color:var(--text-dim); cursor:pointer; font-size:14px; display:flex;
+  align-items:center; justify-content:center; transition:all 0.2s;
+}
+.qty-btn:hover { border-color:var(--gold); color:var(--gold); }
+.cart-item-remove {
+  background:none; border:none; color:var(--text-dim); cursor:pointer;
+  font-size:18px; padding:4px; transition:color 0.2s;
+}
+.cart-item-remove:hover { color:var(--danger); }
+.cart-footer {
+  padding:20px 24px; border-top:1px solid var(--border);
+}
+.cart-total {
+  display:flex; justify-content:space-between; margin-bottom:16px;
+  font-size:16px;
+}
+.cart-total span:last-child { color:var(--gold-light); font-weight:700; font-size:20px; }
+.checkout-btn {
+  width:100%; padding:14px; background:var(--gold); border:none;
+  color:var(--bg); font-size:15px; font-weight:600; cursor:pointer;
+  letter-spacing:2px; transition:all 0.3s; text-transform:uppercase;
+}
+.checkout-btn:hover { background:var(--gold-light); }
+.cart-empty { text-align:center; color:var(--text-dim); padding:60px 20px; font-size:14px; }
 
-<link rel="canonical" href="https://www.hayasaka.eu.org/">
+/* About */
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+}
+.about-img {
+  width:100%; height:400px; object-fit:cover; border-radius:4px;
+}
+.about-text h3 { font-size:24px; font-weight:300; color:#fff; letter-spacing:2px; }
+.about-text h3 strong { color:var(--gold); }
+.about-text p { color:var(--text-dim); margin-top:16px; font-size:15px; line-height:1.8; }
 
+/* Contact */
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:40px;
+}
+.contact-info h4 { font-size:18px; color:#fff; font-weight:400; margin-bottom:12px; }
+.contact-info p { color:var(--text-dim); font-size:14px; line-height:1.8; }
+.contact-info .gold { color:var(--gold); }
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+/* Footer */
+footer {
+  text-align:center; padding:40px; border-top:1px solid var(--border);
+  color:var(--text-dim); font-size:13px;
+}
 
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>晴子の小窝</title>
-  
+/* Toast */
+.toast {
+  position:fixed; bottom:40px; left:50%; transform:translateX(-50%);
+  background:var(--gold); color:var(--bg); padding:12px 28px;
+  border-radius:4px; font-size:14px; font-weight:600; z-index:300;
+  opacity:0; transition:opacity 0.3s; pointer-events:none;
+}
+.toast.show { opacity:1; }
 
-
-
-
-
-
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
-<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
+/* Responsive */
+@media (max-width:768px) {
+  header { padding:0 20px; }
+  nav { gap:16px; }
+  nav a { font-size:12px; }
+  section { padding:60px 20px; }
+  .about-grid, .contact-grid { grid-template-columns:1fr; gap:30px; }
+  .hero-content h1 { font-size:28px; }
+  .products { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+}
+</style>
 </head>
+<body>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <h1 class="site-title">晴子の小窝</h1>
-      <i class="logo-line"></i>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-  </ul>
-</nav>
-
-
-
-
-</header>
-        
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-overview-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Hayasaka Ai</p>
-  <div class="site-description" itemprop="description">Sakura最好了''</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">1</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
+<header>
+  <a href="#" class="logo">EVENING<span>乐器行</span></a>
+  <nav>
+    <a href="#home" class="active">首页</a>
+    <a href="#shop">乐器</a>
+    <a href="#about">关于</a>
+    <a href="#contact">联系</a>
+    <button class="cart-btn" onclick="toggleCart()">🛒<span class="cart-count" id="cartCount">0</span></button>
   </nav>
-</div>
-  <div class="links-of-author animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Evening520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Evening520" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:jiawanqingzi@gmail.com" title="E-Mail → mailto:jiawanqingzi@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
+</header>
 
+<!-- Hero -->
+<section id="home" class="hero">
+  <div class="hero-content">
+    <h1>每一件<strong>乐器</strong>都是一件<strong>艺术品</strong></h1>
+    <p>EVERY INSTRUMENT IS A MASTERPIECE</p>
+    <a href="#shop" class="hero-btn">探索精品</a>
+  </div>
+</section>
+
+<!-- Shop -->
+<section id="shop">
+  <div class="section-title">
+    <h2>精品<strong>乐器</strong></h2>
+    <p>精选世界顶级品牌，为每一位音乐人而来</p>
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterProducts('all', this)">全部</button>
+    <button class="filter-btn" onclick="filterProducts('piano', this)">钢琴</button>
+    <button class="filter-btn" onclick="filterProducts('guitar', this)">吉他</button>
+    <button class="filter-btn" onclick="filterProducts('strings', this)">弦乐</button>
+    <button class="filter-btn" onclick="filterProducts('wind', this)">管乐</button>
+    <button class="filter-btn" onclick="filterProducts('percussion', this)">打击乐</button>
+  </div>
+  <div class="products" id="productsGrid"></div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-title">
+    <h2>关于<strong> Evening</strong></h2>
+    <p>不仅仅是卖乐器，我们传递音乐的灵魂</p>
+  </div>
+  <div class="about-grid">
+    <img class="about-img" src="https://images.unsplash.com/photo-1507838153414-b4b713388a76?w=800&q=80" alt="Evening乐器行">
+    <div class="about-text">
+      <h3>始于 <strong>2016</strong>，专注高端乐器</h3>
+      <p>Evening 乐器行由一群热爱音乐的人创立。我们走遍全球，从德国施坦威到日本雅马哈，从意大利克雷莫纳到美国纳什维尔，只为将最好的乐器带到你手中。</p>
+      <p>每一件乐器在售出前都经过专业技师的精细调校。我们相信，好的乐器能激发无限的创作灵感。</p>
+      <p style="color:var(--gold); margin-top:20px;">✨ 7天无理由退换 &nbsp;|&nbsp; 终身技术支持 &nbsp;|&nbsp; 全国顺丰包邮</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-title">
+    <h2>联系<strong>我们</strong></h2>
+    <p>欢迎预约到店试奏，感受每一件乐器的独特音色</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h4>🏠 门店地址</h4>
+      <p>上海市黄浦区南京东路 288 号<br>Evening 乐器行（旗舰店）</p>
+      <h4 style="margin-top:24px;">🕐 营业时间</h4>
+      <p>周一至周日 &nbsp; 10:00 – 21:00</p>
+      <h4 style="margin-top:24px;">📞 联系方式</h4>
+      <p class="gold">电话：400-888-6688</p>
+      <p class="gold">邮箱：evening520@musicshop.com</p>
+    </div>
+    <div class="contact-info">
+      <h4>🎵 售后服务</h4>
+      <p>所有乐器享受免费调音一次<br>钢琴类享 5 年质保<br>弦乐类享 3 年质保</p>
+      <h4 style="margin-top:24px;">🚚 配送服务</h4>
+      <p>全国顺丰速运包邮<br>大型乐器（钢琴等）专业物流配送<br>到店自提可享额外优惠</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Evening 乐器行. All rights reserved. &nbsp;|&nbsp; 每一件都是艺术品</p>
+</footer>
+
+<!-- Cart Overlay -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 购物车</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">购物车还是空的呢～</div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total">
+      <span>合计</span>
+      <span id="cartTotalPrice">¥0</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">立即结算</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Product Data
+const products = [
+  { id:1, name:'施坦威 D-274 音乐会三角钢琴', brand:'Steinway & Sons', category:'piano', price:1680000, rating:5, desc:'殿堂级音乐会钢琴，全球顶级音乐厅的首选。纯手工打造，一年仅生产数十台。', badge:'旗舰', img:'https://images.unsplash.com/photo-1520523839897-bd0b52f1e670?w=600&q=80' },
+  { id:2, name:'雅马哈 C7X 三角钢琴', brand:'Yamaha', category:'piano', price:458000, rating:5, desc:'日本原装进口，CX系列旗舰型号。音色温暖饱满，触感细腻，适合专业演奏与教学。', badge:'热卖', img:'https://images.unsplash.com/photo-1552422535-c45813c61732?w=600&q=80' },
+  { id:3, name:'马丁 D-28 原声吉他', brand:'Martin', category:'guitar', price:32800, rating:5, desc:'美产全单板民谣吉他之王，云杉面板+东印度玫瑰木背侧，温暖而富有穿透力的音色。', badge:'经典', img:'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=80' },
+  { id:4, name:'Gibson Les Paul Standard 60s', brand:'Gibson', category:'guitar', price:26800, rating:4, desc:'电吉他传奇，AAA火焰枫木贴面，Burstbucker拾音器，摇滚与蓝调的终极武器。', badge:'经典', img:'https://images.unsplash.com/photo-1550985616-0099ce4a5b9d?w=600&q=80' },
+  { id:5, name:'Fender American Pro II Stratocaster', brand:'Fender', category:'guitar', price:17800, rating:4, desc:'美产专业系列，V-Mod II拾音器，深"C"型琴颈，清音通透，过载有力。', badge:'热卖', img:'https://images.unsplash.com/photo-1564186767635-18faf3f9eb1c?w=600&q=80' },
+  { id:6, name:'Taylor 814ce 原声电箱吉他', brand:'Taylor', category:'guitar', price:35800, rating:5, desc:'美产高端系列，西加云杉+印度玫瑰木，ES2拾音系统，演出录音两相宜。', img:'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=600&q=80' },
+  { id:7, name:'斯特拉迪瓦里仿制小提琴', brand:'Cremona Master', category:'strings', price:88000, rating:5, desc:'意大利克雷莫纳手工制作，精选风干20年欧洲枫木，音色醇厚如陈年美酒。', badge:'珍品', img:'https://images.unsplash.com/photo-1609593334492-e751c3cc8474?w=600&q=80' },
+  { id:8, name:'雅马哈 SVC-210 静音大提琴', brand:'Yamaha', category:'strings', price:12800, rating:4, desc:'静音电大提琴，可接耳机练习不扰民。内置混响效果，演出携带极其方便。', badge:'新品', img:'https://images.unsplash.com/photo-1536431311809-bfdb285d0c85?w=600&q=80' },
+  { id:9, name:'Selmer Paris Reference 54 中音萨克斯', brand:'Selmer', category:'wind', price:56800, rating:5, desc:'法国纯手工萨克斯之王，致敬传奇Mark VI。音色丝滑饱满，响应极快。', badge:'旗舰', img:'https://images.unsplash.com/photo-1573871669414-036dbf673374?w=600&q=80' },
+  { id:10, name:'雅马哈 YFL-577H 长笛', brand:'Yamaha', category:'wind', price:16800, rating:4, desc:'日产专业级长笛，纯银笛头+管身，法式按键，音色纯净明亮。', img:'https://images.unsplash.com/photo-1487887235945-a955cd654d35?w=600&q=80' },
+  { id:11, name:'Bach Stradivarius 180S37 小号', brand:'Bach', category:'wind', price:22800, rating:5, desc:'美产专业小号标杆，标准重量黄铜管身，#37喇叭口，交响乐团标配。', badge:'经典', img:'https://images.unsplash.com/photo-1511192336575-54141c18e220?w=600&q=80' },
+  { id:12, name:'DW Collector\'s 系列架子鼓', brand:'DW', category:'percussion', price:52000, rating:5, desc:'美产定制套鼓，枫木鼓腔，音色深沉有力。从爵士到摇滚，无所不能。', badge:'旗舰', img:'https://images.unsplash.com/photo-1461784121038-f088c6717f42?w=600&q=80' },
+  { id:13, name:'Roland TD-27KV 电子鼓', brand:'Roland', category:'percussion', price:15800, rating:4, desc:'旗舰级电子鼓，网状鼓面手感真实，内置蓝牙/USB录音，静音练习神器。', badge:'新品', img:'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80' },
+  { id:14, name:'Nord Stage 4 88 舞台电钢琴', brand:'Nord', category:'piano', price:38800, rating:5, desc:'瑞典旗舰舞台键盘，三层音色引擎，FATAR全配重键盘，现场演出终极利器。', badge:'热卖', img:'https://images.unsplash.com/photo-1507838153414-b4b713388a76?w=600&q=80' },
+  { id:15, name:'Kamaka HF-3 夏威夷相思木尤克里里', brand:'Kamaka', category:'guitar', price:8800, rating:5, desc:'夏威夷百年品牌，全单相思木，音色甜美如热带海风。收藏级品质。', badge:'珍品', img:'https://images.unsplash.com/photo-1546443964-1cf48e4e1e01?w=600&q=80' },
+];
+
+let cart = [];
+let currentFilter = 'all';
+
+function formatPrice(p) {
+  if (p >= 10000) return '¥' + (p/10000).toFixed(p%10000===0?0:1) + '万';
+  return '¥' + p.toLocaleString();
+}
+
+function renderProducts(filter = 'all') {
+  const grid = document.getElementById('productsGrid');
+  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="quickAdd(${p.id}, event)">
+      <div class="product-img-wrap">
+        <img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&q=80'">
+      </div>
+      ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      <div class="product-info">
+        <div class="product-brand">${p.brand}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div class="product-price">${formatPrice(p.price)}</div>
+          <div class="product-rating">${'★'.repeat(p.rating)}${'☆'.repeat(5-p.rating)}</div>
         </div>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">加入购物车</button>
       </div>
     </div>
+  `).join('');
+}
 
-    
-  </aside>
+function filterProducts(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
 
+function addToCart(productId) {
+  const p = products.find(x => x.id === productId);
+  const existing = cart.find(x => x.id === productId);
+  if (existing) { existing.qty++; }
+  else { cart.push({...p, qty:1}); }
+  updateCart();
+  showToast(`已加入购物车：${p.name.substring(0,15)}...`);
+}
 
-    </div>
+function quickAdd(productId, event) {
+  if (event.target.closest('.add-cart-btn')) return;
+  addToCart(productId);
+}
 
-    <div class="main-inner index posts-expand">
+function removeFromCart(productId) {
+  cart = cart.filter(x => x.id !== productId);
+  updateCart();
+}
 
-    
+function changeQty(productId, delta) {
+  const item = cart.find(x => x.id === productId);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) { removeFromCart(productId); return; }
+  updateCart();
+}
 
+function updateCart() {
+  const count = cart.reduce((s,x) => s + x.qty, 0);
+  const countEl = document.getElementById('cartCount');
+  countEl.textContent = count;
+  countEl.classList.toggle('show', count > 0);
 
-<div class="post-block">
-  
-  
+  const total = cart.reduce((s,x) => s + x.price * x.qty, 0);
+  document.getElementById('cartTotalPrice').textContent = formatPrice(total);
+  document.getElementById('cartFooter').style.display = cart.length ? 'block' : 'none';
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://www.hayasaka.eu.org/2025/06/12/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hayasaka Ai">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="晴子の小窝">
-      <meta itemprop="description" content="Sakura最好了''">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 晴子の小窝">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/06/12/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-06-12 16:44:30" itemprop="dateCreated datePublished" datetime="2025-06-12T16:44:30+08:00">2025-06-12</time>
-    </span>
-
-  
-</div>
-
+  const itemsEl = document.getElementById('cartItems');
+  if (cart.length === 0) {
+    itemsEl.innerHTML = '<div class="cart-empty">购物车还是空的呢～</div>';
+  } else {
+    itemsEl.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.img}" alt="${item.name}">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${formatPrice(item.price)}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+            <span>${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+          </div>
         </div>
-      </header>
+        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">🗑</button>
+      </div>
+    `).join('');
+  }
+}
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+function toggleCart() {
+  document.getElementById('cartOverlay').classList.toggle('open');
+  document.getElementById('cartSidebar').classList.toggle('open');
+}
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+function checkout() {
+  if (cart.length === 0) return;
+  const total = cart.reduce((s,x) => s + x.price * x.qty, 0);
+  alert(`感谢您的选购！\n\n订单总计：${formatPrice(total)}\n\n请到店或联系客服完成支付。\n📞 400-888-6688`);
+}
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => t.classList.remove('show'), 2000);
+}
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2025</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Hayasaka Ai</span>
-  </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
-
-    </div>
-  </footer>
-
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+// Init
+renderProducts();
+</script>
 
 </body>
 </html>
