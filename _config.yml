@@ -1,0 +1,18 @@
+title: Evening乐器行
+description: 每一件乐器都是一件艺术品 — 高端乐器精品店
+author: Evening520
+lang: zh-CN
+
+# GitHub Pages 推荐配置
+lsi: false
+safe: true
+source: .
+incremental: false
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# 不需要 Jekyll 处理的内容
+include:
+  - index.html
