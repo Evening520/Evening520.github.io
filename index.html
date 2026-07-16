@@ -1,13 +1,13 @@
 ---
 layout: none
-title: Evening乐器行 — 精品乐器商店
+title: Evening Music — Premium Instruments
 ---
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evening 乐器行 — 每一件都是艺术品</title>
+<title>Evening Music — Every Instrument Is A Masterpiece</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 :root {
@@ -19,17 +19,25 @@ title: Evening乐器行 — 精品乐器商店
   --text-dim: #8a8580;
   --border: #222;
   --danger: #c0392b;
+  --green: #27ae60;
+  --star: #f0c040;
 }
-
 html { scroll-behavior:smooth; }
 body {
-  font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: 'Inter', 'Segoe UI', 'PingFang SC', sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
 }
-
+/* Lang Toggle */
+.lang-toggle {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-dim); padding: 6px 14px; cursor: pointer;
+  font-size: 12px; letter-spacing: 1px; transition: all 0.2s;
+  border-radius: 2px;
+}
+.lang-toggle:hover { border-color: var(--gold); color: var(--gold); }
 /* Header */
 header {
   position: fixed; top:0; left:0; right:0; z-index:100;
@@ -43,14 +51,13 @@ header {
   font-size: 22px; font-weight: 700; letter-spacing: 1px;
   color: var(--gold); text-decoration: none;
 }
-.logo span { color: var(--text-dim); font-weight: 300; margin-left: 6px; }
-nav { display:flex; gap:32px; align-items:center; }
+.logo span[data-lang] { color: var(--text-dim); font-weight: 300; margin-left: 6px; }
+nav { display:flex; gap:20px; align-items:center; }
 nav a {
-  color: var(--text-dim); text-decoration: none; font-size:14px;
+  color: var(--text-dim); text-decoration: none; font-size:13px;
   transition: color 0.2s; letter-spacing: 0.5px;
 }
 nav a:hover, nav a.active { color: var(--gold); }
-
 .cart-btn {
   position:relative; background:none; border:none; color:var(--text);
   font-size:20px; cursor:pointer; padding:8px;
@@ -62,7 +69,6 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-weight:700; display:none;
 }
 .cart-count.show { display:flex; }
-
 /* Hero */
 .hero {
   height: 100vh; min-height:600px;
@@ -72,19 +78,19 @@ nav a:hover, nav a.active { color: var(--gold); }
 }
 .hero::before {
   content:''; position:absolute; top:0; left:0; right:0; bottom:0;
-  background: url('https://images.unsplash.com/photo-1520523839897-bd0b52f1e670?w=1920&q=80') center/cover;
-  opacity:0.18; filter: brightness(0.6);
+  background: url('https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1920&q=80') center/cover;
+  opacity:0.15; filter: brightness(0.6);
 }
 .hero-content {
   position:relative; z-index:1; text-align:center; max-width:800px; padding:20px;
 }
 .hero-content h1 {
-  font-size: clamp(32px, 5vw, 60px); font-weight: 300;
-  letter-spacing: 4px; margin-bottom: 20px; color: #fff;
+  font-size: clamp(32px, 5vw, 56px); font-weight: 300;
+  letter-spacing: 4px; margin-bottom: 16px; color: #fff;
 }
 .hero-content h1 strong { color: var(--gold); font-weight: 600; }
 .hero-content p {
-  font-size: 18px; color: var(--text-dim); margin-bottom: 40px; letter-spacing: 2px;
+  font-size: 16px; color: var(--text-dim); margin-bottom: 36px; letter-spacing: 3px;
 }
 .hero-btn {
   display:inline-block; padding:14px 48px; border: 1.5px solid var(--gold);
@@ -92,67 +98,82 @@ nav a:hover, nav a.active { color: var(--gold); }
   font-size:14px; transition: all 0.3s; text-transform: uppercase;
 }
 .hero-btn:hover { background: var(--gold); color: var(--bg); }
-
 /* Sections */
 section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
 .section-title {
-  text-align: center; margin-bottom: 60px;
+  text-align: center; margin-bottom: 50px;
 }
 .section-title h2 {
   font-size: 32px; font-weight: 300; letter-spacing: 3px; color: #fff;
 }
 .section-title h2 strong { color: var(--gold); font-weight: 600; }
 .section-title p { color: var(--text-dim); margin-top: 10px; font-size: 15px; }
-
-/* Category filter */
-.filters { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:40px; }
+/* Filters */
+.filters { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:36px; }
 .filter-btn {
-  padding: 8px 24px; border: 1px solid var(--border); background: transparent;
+  padding: 8px 22px; border: 1px solid var(--border); background: transparent;
   color: var(--text-dim); cursor: pointer; font-size:13px; letter-spacing:1px;
   transition: all 0.2s; border-radius: 2px;
 }
-.filter-btn:hover, .filter-btn.active {
-  border-color: var(--gold); color: var(--gold);
-}
-
-/* Products Grid */
+.filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); }
+/* Products */
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
 }
 .product-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 4px; overflow: hidden; transition: all 0.35s;
+  border-radius: 6px; overflow: hidden; transition: all 0.35s;
   cursor: pointer; position: relative;
 }
 .product-card:hover { border-color: var(--gold); transform: translateY(-4px); }
 .product-card:hover .product-img { transform: scale(1.04); }
-.product-img-wrap { overflow:hidden; height:240px; }
-.product-img {
-  width:100%; height:100%; object-fit:cover; transition: transform 0.5s;
-}
+.product-img-wrap { overflow:hidden; height:220px; }
+.product-img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s; }
 .product-badge {
-  position:absolute; top:16px; right:16px; background:var(--gold);
-  color:var(--bg); font-size:11px; padding:4px 10px; font-weight:700;
+  position:absolute; top:14px; right:14px; background:var(--gold);
+  color:var(--bg); font-size:10px; padding:4px 10px; font-weight:700;
   letter-spacing:1px; border-radius:2px;
 }
-.product-info { padding: 20px; }
+.product-info { padding: 18px; }
 .product-brand { font-size:11px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; }
-.product-name { font-size: 17px; margin: 6px 0; color: #fff; font-weight: 500; }
-.product-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 12px; line-height: 1.5; }
+.product-name { font-size: 16px; margin: 6px 0; color: #fff; font-weight: 600; }
+.product-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; line-height: 1.5; }
 .product-footer { display:flex; justify-content:space-between; align-items:center; }
-.product-price { font-size: 22px; font-weight: 700; color: var(--gold-light); }
-.product-price .yuan { font-size: 14px; font-weight: 400; }
-.product-rating { color: #f0c040; font-size: 13px; }
+.product-price { font-size: 20px; font-weight: 700; color: var(--gold-light); }
+.product-price .currency { font-size: 13px; font-weight: 400; margin-right: 2px; }
+.product-rating { color: var(--star); font-size: 13px; }
+.product-reviews { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
 .add-cart-btn {
-  width:100%; padding:12px; background: transparent; border: 1px solid var(--gold);
-  color: var(--gold); cursor:pointer; font-size:13px; letter-spacing:2px;
-  margin-top:12px; transition: all 0.3s; text-transform:uppercase;
+  width:100%; padding:11px; background: transparent; border: 1px solid var(--gold);
+  color: var(--gold); cursor:pointer; font-size:12px; letter-spacing:2px;
+  margin-top:10px; transition: all 0.3s; text-transform:uppercase;
 }
 .add-cart-btn:hover { background: var(--gold); color: var(--bg); }
-
-/* Cart Sidebar */
+/* Review Modal */
+.review-overlay {
+  position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.65);
+  z-index:400; display:none; align-items:center; justify-content:center;
+  backdrop-filter: blur(4px);
+}
+.review-overlay.open { display:flex; }
+.review-modal {
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  width:100%; max-width:500px; max-height:80vh; overflow-y:auto; padding:28px 30px;
+  animation:modalIn 0.25s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.review-modal h3 { font-size:18px; font-weight:400; color:#fff; letter-spacing:1px; margin-bottom:20px; }
+.review-modal h3 strong { color:var(--gold); }
+.review-item { padding:14px 0; border-bottom:1px solid var(--border); }
+.review-item:last-child { border-bottom:none; }
+.review-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.review-name { font-size:14px; color:#fff; font-weight:500; }
+.review-stars { color:var(--star); font-size:13px; }
+.review-date { font-size:11px; color:var(--text-dim); }
+.review-text { font-size:13px; color:var(--text-dim); line-height:1.5; margin-top:4px; }
+/* Cart */
 .cart-overlay {
   position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6);
   z-index:200; opacity:0; pointer-events:none; transition:opacity 0.3s;
@@ -197,13 +218,8 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
   font-size:18px; padding:4px; transition:color 0.2s;
 }
 .cart-item-remove:hover { color:var(--danger); }
-.cart-footer {
-  padding:20px 24px; border-top:1px solid var(--border);
-}
-.cart-total {
-  display:flex; justify-content:space-between; margin-bottom:16px;
-  font-size:16px;
-}
+.cart-footer { padding:20px 24px; border-top:1px solid var(--border); }
+.cart-total { display:flex; justify-content:space-between; margin-bottom:16px; font-size:16px; }
 .cart-total span:last-child { color:var(--gold-light); font-weight:700; font-size:20px; }
 .checkout-btn {
   width:100%; padding:14px; background:var(--gold); border:none;
@@ -211,33 +227,33 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
   letter-spacing:2px; transition:all 0.3s; text-transform:uppercase;
 }
 .checkout-btn:hover { background:var(--gold-light); }
-.cart-empty { text-align:center; color:var(--text-dim); padding:60px 20px; font-size:14px; }
-
+.cart-empty { color: var(--text-dim); padding: 60px 20px; font-size: 14px; text-align: center; }
 /* About */
 .about-grid {
   display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
 }
 .about-img {
-  width:100%; height:400px; object-fit:cover; border-radius:4px;
+  width:100%; height:420px; object-fit:cover; border-radius:6px;
 }
 .about-text h3 { font-size:24px; font-weight:300; color:#fff; letter-spacing:2px; }
 .about-text h3 strong { color:var(--gold); }
-.about-text p { color:var(--text-dim); margin-top:16px; font-size:15px; line-height:1.8; }
-
+.about-text p { color:var(--text-dim); margin-top:14px; font-size:15px; line-height:1.8; }
+.about-tag { color:var(--gold); margin-top:20px; font-size:13px; letter-spacing:1px; }
 /* Contact */
 .contact-grid {
-  display:grid; grid-template-columns:1fr 1fr; gap:40px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:30px;
 }
-.contact-info h4 { font-size:18px; color:#fff; font-weight:400; margin-bottom:12px; }
-.contact-info p { color:var(--text-dim); font-size:14px; line-height:1.8; }
-.contact-info .gold { color:var(--gold); }
-
+.contact-card {
+  background:var(--surface); border:1px solid var(--border); border-radius:6px;
+  padding:24px; transition:all 0.3s;
+}
+.contact-card:hover { border-color:var(--gold); transform:translateY(-2px); }
+.contact-icon { font-size:28px; margin-bottom:12px; }
+.contact-card h4 { font-size:16px; color:#fff; font-weight:500; margin-bottom:8px; }
+.contact-card p { color:var(--text-dim); font-size:14px; line-height:1.7; }
+.contact-card .gold { color:var(--gold); }
 /* Footer */
-footer {
-  text-align:center; padding:40px; border-top:1px solid var(--border);
-  color:var(--text-dim); font-size:13px;
-}
-
+footer { text-align:center; padding:40px; border-top:1px solid var(--border); color:var(--text-dim); font-size:13px; }
 /* Toast */
 .toast {
   position:fixed; bottom:40px; left:50%; transform:translateX(-50%);
@@ -245,153 +261,89 @@ footer {
   border-radius:4px; font-size:14px; font-weight:600; z-index:300;
   opacity:0; transition:opacity 0.3s; pointer-events:none;
 }
-}, .cart-empty { color: var(--text-dim); padding: 60px 20px; font-size: 14px; text-align: center; }
-
+.toast.show { opacity:1; }
 /* Payment Modal */
 .payment-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7); z-index: 500;
-  display: none; align-items: center; justify-content: center;
-  backdrop-filter: blur(4px);
+  position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7);
+  z-index:500; display:none; align-items:center; justify-content:center;
+  backdrop-filter:blur(4px);
 }
-.payment-overlay.open { display: flex; }
+.payment-overlay.open { display:flex; }
 .payment-modal {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; width: 100%; max-width: 480px; max-height: 90vh;
-  overflow-y: auto; padding: 36px 32px;
-  animation: modalIn 0.25s ease;
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  width:100%; max-width:480px; max-height:90vh; overflow-y:auto;
+  padding:36px 32px; animation:modalIn 0.25s ease;
 }
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.payment-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 24px;
-}
-.payment-header h2 { font-size: 20px; font-weight: 400; color: #fff; letter-spacing: 1px; }
-.payment-header h2 strong { color: var(--gold); }
-.payment-close {
-  background: none; border: none; color: var(--text-dim); font-size: 22px;
-  cursor: pointer; transition: color 0.2s;
-}
-.payment-close:hover { color: var(--danger); }
-
-.payment-summary {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 6px; padding: 16px; margin-bottom: 24px;
-}
-.payment-summary-item {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 8px; font-size: 14px;
-}
-.payment-summary-item:last-child { margin-bottom: 0; }
-.payment-summary-item span:first-child { color: var(--text-dim); }
-.payment-summary-item span:last-child { color: var(--text); }
-.payment-summary-total {
-  display: flex; justify-content: space-between; align-items: center;
-  padding-top: 12px; margin-top: 8px;
-  border-top: 1px solid var(--border); font-size: 16px;
-}
-.payment-summary-total span:first-child { color: var(--text-dim); }
-.payment-summary-total span:last-child {
-  color: var(--gold); font-weight: 700; font-size: 22px;
-}
-
+.payment-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+.payment-header h2 { font-size:20px; font-weight:400; color:#fff; letter-spacing:1px; }
+.payment-header h2 strong { color:var(--gold); }
+.payment-close { background:none; border:none; color:var(--text-dim); font-size:22px; cursor:pointer; }
+.payment-close:hover { color:var(--danger); }
+.payment-summary { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:16px; margin-bottom:24px; }
+.payment-summary-item { display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px; }
+.payment-summary-item span:first-child { color:var(--text-dim); }
+.payment-summary-item span:last-child { color:var(--text); }
+.payment-summary-total { display:flex; justify-content:space-between; padding-top:10px; margin-top:6px; border-top:1px solid var(--border); }
+.payment-summary-total span:first-child { color:var(--text-dim); }
+.payment-summary-total span:last-child { color:var(--gold); font-weight:700; font-size:20px; }
 .card-display {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  border-radius: 10px; padding: 20px 24px; margin-bottom: 24px;
-  min-height: 140px; position: relative;
-  border: 1px solid rgba(255,255,255,0.08);
+  background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);
+  border-radius:10px; padding:20px 24px; margin-bottom:24px; min-height:140px;
+  position:relative; border:1px solid rgba(255,255,255,0.08);
 }
-.card-display-brand {
-  position: absolute; top: 16px; right: 20px;
-  font-size: 24px; letter-spacing: 2px;
-}
-.card-display-number {
-  font-size: 20px; letter-spacing: 3px; color: #fff;
-  margin-top: 28px; font-family: 'Courier New', monospace;
-}
-.card-display-bottom {
-  display: flex; justify-content: space-between; margin-top: 12px;
-  font-size: 12px; color: rgba(255,255,255,0.6);
-  text-transform: uppercase;
-}
-
-.form-group { margin-bottom: 16px; }
-.form-label {
-  display: block; font-size: 12px; color: var(--text-dim);
-  margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase;
-}
+.card-display-brand { position:absolute; top:16px; right:20px; font-size:20px; }
+.card-display-number { font-size:20px; letter-spacing:3px; color:#fff; margin-top:28px; font-family:'Courier New',monospace; }
+.card-display-bottom { display:flex; justify-content:space-between; margin-top:12px; font-size:11px; color:rgba(255,255,255,0.6); text-transform:uppercase; }
+.form-group { margin-bottom:14px; }
+.form-label { display:block; font-size:11px; color:var(--text-dim); margin-bottom:4px; letter-spacing:1px; text-transform:uppercase; }
 .form-input {
-  width: 100%; padding: 12px 14px;
-  background: var(--bg); border: 1px solid var(--border);
-  color: var(--text); font-size: 15px; border-radius: 4px;
-  transition: border-color 0.2s; outline: none;
-  font-family: 'Courier New', monospace;
+  width:100%; padding:10px 14px; background:var(--bg); border:1px solid var(--border);
+  color:var(--text); font-size:14px; border-radius:4px; transition:border-color 0.2s;
+  outline:none; font-family:'Courier New',monospace;
 }
-.form-input:focus { border-color: var(--gold); }
-.form-input::placeholder { color: #555; }
-.form-row { display: flex; gap: 14px; }
-.form-row .form-group { flex: 1; }
-
+.form-input:focus { border-color:var(--gold); }
+.form-input::placeholder { color:#555; }
+.form-row { display:flex; gap:14px; }
+.form-row .form-group { flex:1; }
 .pay-btn {
-  width: 100%; padding: 14px;
-  background: linear-gradient(135deg, #c8a45c 0%, #d4b06a 100%);
-  border: none; color: var(--bg); font-size: 16px; font-weight: 700;
-  cursor: pointer; letter-spacing: 2px; border-radius: 4px;
-  transition: all 0.3s; margin-top: 8px;
+  width:100%; padding:14px; background:linear-gradient(135deg,#c8a45c 0%,#d4b06a 100%);
+  border:none; color:var(--bg); font-size:15px; font-weight:700; cursor:pointer;
+  letter-spacing:2px; border-radius:4px; transition:all 0.3s; margin-top:6px;
 }
-.pay-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(200,164,92,0.3); }
-.pay-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-
-.pay-success {
-  text-align: center; padding: 40px 20px;
-}
-.pay-success-icon {
-  font-size: 56px; margin-bottom: 16px;
-}
-.pay-success h3 { font-size: 22px; color: #fff; font-weight: 400; margin-bottom: 8px; }
-.pay-success h3 strong { color: var(--gold); }
-.pay-success p { color: var(--text-dim); font-size: 14px; line-height: 1.6; margin-bottom: 4px; }
-.pay-success .order-id {
-  color: var(--gold); font-family: 'Courier New', monospace;
-  font-size: 14px; margin-top: 12px; letter-spacing: 1px;
-}
-.pay-success .continue-btn {
-  margin-top: 24px; padding: 12px 40px;
-  background: transparent; border: 1px solid var(--gold);
-  color: var(--gold); cursor: pointer; font-size: 14px;
-  letter-spacing: 2px; border-radius: 4px; transition: all 0.3s;
-}
-.pay-success .continue-btn:hover { background: var(--gold); color: var(--bg); }
-
-.card-error {
-  color: var(--danger); font-size: 12px; margin-top: 4px; display: none;
-}
-.card-error.show { display: block; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  header { padding: 0 20px; }
-  nav { gap:16px; }
+.pay-btn:hover { transform:translateY(-1px); box-shadow:0 4px 20px rgba(200,164,92,0.3); }
+.pay-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
+.pay-success { text-align:center; padding:40px 20px; }
+.pay-success-icon { font-size:52px; margin-bottom:14px; }
+.pay-success h3 { font-size:20px; color:#fff; font-weight:400; margin-bottom:8px; }
+.pay-success h3 strong { color:var(--gold); }
+.pay-success p { color:var(--text-dim); font-size:14px; line-height:1.6; }
+.pay-success .order-id { color:var(--gold); font-family:'Courier New',monospace; font-size:13px; margin-top:10px; letter-spacing:1px; }
+.pay-success .continue-btn { margin-top:20px; padding:12px 40px; background:transparent; border:1px solid var(--gold); color:var(--gold); cursor:pointer; font-size:13px; letter-spacing:2px; border-radius:4px; transition:all 0.3s; }
+.pay-success .continue-btn:hover { background:var(--gold); color:var(--bg); }
+.card-error { color:var(--danger); font-size:11px; margin-top:4px; display:none; }
+.card-error.show { display:block; }
+@media (max-width:768px) {
+  header { padding:0 20px; }
+  nav { gap:12px; }
   nav a { font-size:12px; }
+  .contact-grid { grid-template-columns:1fr; }
   section { padding:60px 20px; }
-  .about-grid, .contact-grid { grid-template-columns:1fr; gap:30px; }
+  .about-grid { grid-template-columns:1fr; gap:30px; }
   .hero-content h1 { font-size:28px; }
-  .products { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .products { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <a href="#" class="logo">EVENING<span>乐器行</span></a>
+  <a href="#" class="logo">EVENING<span data-lang="tagline-logo"> Music</span></a>
   <nav>
-    <a href="#home" class="active">首页</a>
-    <a href="#shop">乐器</a>
-    <a href="#about">关于</a>
-    <a href="#contact">联系</a>
+    <a href="#home" data-key="nav-home">Home</a>
+    <a href="#shop" data-key="nav-shop">Shop</a>
+    <a href="#about" data-key="nav-about">About</a>
+    <a href="#contact" data-key="nav-contact">Contact</a>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">中文</button>
     <button class="cart-btn" onclick="toggleCart()">🛒<span class="cart-count" id="cartCount">0</span></button>
   </nav>
 </header>
@@ -399,25 +351,25 @@ footer {
 <!-- Hero -->
 <section id="home" class="hero">
   <div class="hero-content">
-    <h1>每一件<strong>乐器</strong>都是一件<strong>艺术品</strong></h1>
-    <p>EVERY INSTRUMENT IS A MASTERPIECE</p>
-    <a href="#shop" class="hero-btn">探索精品</a>
+    <h1 data-lang="hero-title">Every <strong>Instrument</strong><br>Is A <strong>Masterpiece</strong></h1>
+    <p data-lang="hero-sub">PREMIUM MUSICAL INSTRUMENTS — LONDON, UK</p>
+    <a href="#shop" class="hero-btn" data-lang="hero-btn">Explore Collection</a>
   </div>
 </section>
 
 <!-- Shop -->
 <section id="shop">
   <div class="section-title">
-    <h2>精品<strong>乐器</strong></h2>
-    <p>精选世界顶级品牌，为每一位音乐人而来</p>
+    <h2 data-lang="shop-title">Premium <strong>Instruments</strong></h2>
+    <p data-lang="shop-sub">Curated finest brands from around the world</p>
   </div>
   <div class="filters">
-    <button class="filter-btn active" onclick="filterProducts('all', this)">全部</button>
-    <button class="filter-btn" onclick="filterProducts('piano', this)">钢琴</button>
-    <button class="filter-btn" onclick="filterProducts('guitar', this)">吉他</button>
-    <button class="filter-btn" onclick="filterProducts('strings', this)">弦乐</button>
-    <button class="filter-btn" onclick="filterProducts('wind', this)">管乐</button>
-    <button class="filter-btn" onclick="filterProducts('percussion', this)">打击乐</button>
+    <button class="filter-btn active" onclick="filterProducts('all', this)" data-lang="filter-all">All</button>
+    <button class="filter-btn" onclick="filterProducts('piano', this)" data-lang="filter-piano">Piano</button>
+    <button class="filter-btn" onclick="filterProducts('guitar', this)" data-lang="filter-guitar">Guitar</button>
+    <button class="filter-btn" onclick="filterProducts('strings', this)" data-lang="filter-strings">Strings</button>
+    <button class="filter-btn" onclick="filterProducts('wind', this)" data-lang="filter-wind">Wind</button>
+    <button class="filter-btn" onclick="filterProducts('percussion', this)" data-lang="filter-percussion">Percussion</button>
   </div>
   <div class="products" id="productsGrid"></div>
 </section>
@@ -425,16 +377,16 @@ footer {
 <!-- About -->
 <section id="about">
   <div class="section-title">
-    <h2>关于<strong> Evening</strong></h2>
-    <p>不仅仅是卖乐器，我们传递音乐的灵魂</p>
+    <h2 data-lang="about-title">About <strong>Evening</strong></h2>
+    <p data-lang="about-sub">More than instruments — we deliver the soul of music</p>
   </div>
   <div class="about-grid">
-    <img class="about-img" src="https://images.unsplash.com/photo-1507838153414-b4b713388a76?w=800&q=80" alt="Evening乐器行">
+    <img class="about-img" src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80" alt="Evening Music London" loading="lazy">
     <div class="about-text">
-      <h3>始于 <strong>2016</strong>，专注高端乐器</h3>
-      <p>Evening 乐器行由一群热爱音乐的人创立。我们走遍全球，从德国施坦威到日本雅马哈，从意大利克雷莫纳到美国纳什维尔，只为将最好的乐器带到你手中。</p>
-      <p>每一件乐器在售出前都经过专业技师的精细调校。我们相信，好的乐器能激发无限的创作灵感。</p>
-      <p style="color:var(--gold); margin-top:20px;">✨ 7天无理由退换 &nbsp;|&nbsp; 终身技术支持 &nbsp;|&nbsp; 全国顺丰包邮</p>
+      <h3 data-lang="about-heading">Since <strong>2016</strong>, London's Finest Instrument Boutique</h3>
+      <p data-lang="about-p1">Evening Music was founded by a group of passionate musicians in the heart of London. We travel the globe — from Steinway's Hamburg factory to the violin workshops of Cremona, from Gibson's Nashville custom shop to the Yamaha atelier in Tokyo — to bring the world's finest instruments to you.</p>
+      <p data-lang="about-p2">Every instrument is meticulously set up by our master technicians before it leaves our showroom. We believe a great instrument unlocks limitless creativity.</p>
+      <p class="about-tag" data-lang="about-tag">✨ 14-Day Returns &nbsp;·&nbsp; Lifetime Support &nbsp;·&nbsp; Complimentary Shipping</p>
     </div>
   </div>
 </section>
@@ -442,48 +394,60 @@ footer {
 <!-- Contact -->
 <section id="contact">
   <div class="section-title">
-    <h2>联系<strong>我们</strong></h2>
-    <p>欢迎预约到店试奏，感受每一件乐器的独特音色</p>
+    <h2 data-lang="contact-title">Get In <strong>Touch</strong></h2>
+    <p data-lang="contact-sub">Visit our showroom to experience the instruments in person</p>
   </div>
   <div class="contact-grid">
-    <div class="contact-info">
-      <h4>🏠 门店地址</h4>
-      <p>上海市黄浦区南京东路 288 号<br>Evening 乐器行（旗舰店）</p>
-      <h4 style="margin-top:24px;">🕐 营业时间</h4>
-      <p>周一至周日 &nbsp; 10:00 – 21:00</p>
-      <h4 style="margin-top:24px;">📞 联系方式</h4>
-      <p class="gold">电话：400-888-6688</p>
-      <p class="gold">邮箱：evening520@musicshop.com</p>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <h4 data-lang="con-add-title">Address</h4>
+      <p>123 Baker Street<br>Marylebone, London<br>NW1 6XE, United Kingdom</p>
     </div>
-    <div class="contact-info">
-      <h4>🎵 售后服务</h4>
-      <p>所有乐器享受免费调音一次<br>钢琴类享 5 年质保<br>弦乐类享 3 年质保</p>
-      <h4 style="margin-top:24px;">🚚 配送服务</h4>
-      <p>全国顺丰速运包邮<br>大型乐器（钢琴等）专业物流配送<br>到店自提可享额外优惠</p>
+    <div class="contact-card">
+      <div class="contact-icon">🕐</div>
+      <h4 data-lang="con-hours-title">Opening Hours</h4>
+      <p data-lang="con-hours">Mon — Sat &nbsp;10:00 – 19:00<br>Sunday &nbsp;11:00 – 17:00</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h4 data-lang="con-contact-title">Contact</h4>
+      <p class="gold">+44 20 7123 4567</p>
+      <p class="gold">info@eveningmusic.co.uk</p>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 Evening 乐器行. All rights reserved. &nbsp;|&nbsp; 每一件都是艺术品</p>
+  <p data-lang="footer">© 2026 Evening Music, London. All rights reserved. &nbsp;·&nbsp; Every Instrument Is A Masterpiece</p>
 </footer>
 
-<!-- Cart Overlay -->
+<!-- Cart -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-sidebar" id="cartSidebar">
   <div class="cart-header">
-    <h3>🛒 购物车</h3>
+    <h3 data-lang="cart-title">🛒 Your Cart</h3>
     <button class="cart-close" onclick="toggleCart()">✕</button>
   </div>
   <div class="cart-items" id="cartItems">
-    <div class="cart-empty">购物车还是空的呢～</div>
+    <div class="cart-empty" data-lang="cart-empty">Your cart is empty</div>
   </div>
   <div class="cart-footer" id="cartFooter" style="display:none;">
     <div class="cart-total">
-      <span>合计</span>
-      <span id="cartTotalPrice">¥0</span>
+      <span data-lang="cart-total-label">Total</span>
+      <span id="cartTotalPrice">£0</span>
     </div>
-    <button class="checkout-btn" onclick="checkout()">立即结算</button>
+    <button class="checkout-btn" onclick="checkout()" data-lang="cart-checkout">CHECKOUT</button>
+  </div>
+</div>
+
+<!-- Review Modal -->
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview(event)">
+  <div class="review-modal" onclick="event.stopPropagation()">
+    <div class="payment-header">
+      <h3 data-lang="review-title">⭐ Customer <strong>Reviews</strong></h3>
+      <button class="payment-close" onclick="closeReview()">✕</button>
+    </div>
+    <div id="reviewList"></div>
   </div>
 </div>
 
@@ -492,15 +456,12 @@ footer {
 <!-- Payment Modal -->
 <div class="payment-overlay" id="paymentOverlay" onclick="closePayment(event)">
   <div class="payment-modal" onclick="event.stopPropagation()">
-    <!-- Payment Form -->
     <div id="paymentForm">
       <div class="payment-header">
-        <h2>💳 安全<strong>支付</strong></h2>
+        <h2>💳 <span data-lang="pay-title">Secure</span> <strong data-lang="pay-title2">Payment</strong></h2>
         <button class="payment-close" onclick="closePayment()">✕</button>
       </div>
-
       <div class="payment-summary" id="paymentSummary"></div>
-
       <div class="card-display" id="cardDisplay">
         <div class="card-display-brand" id="cardBrand">💳</div>
         <div class="card-display-number" id="cardNumberDisplay">••••  ••••  ••••  ••••</div>
@@ -509,102 +470,198 @@ footer {
           <span id="cardExpDisplay">MM/YY</span>
         </div>
       </div>
-
       <div class="form-group">
-        <label class="form-label">持卡人姓名</label>
+        <label class="form-label" data-lang="pay-name">Cardholder Name</label>
         <input class="form-input" id="cardName" placeholder="EVENING520" style="font-family:inherit" maxlength="30" oninput="updateCardPreview()">
       </div>
-
       <div class="form-group">
-        <label class="form-label">卡号</label>
+        <label class="form-label" data-lang="pay-number">Card Number</label>
         <input class="form-input" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber()">
-        <div class="card-error" id="cardNumberError">请输入有效卡号</div>
+        <div class="card-error" id="cardNumberError" data-lang="pay-num-error">Invalid card number</div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">有效期</label>
+          <label class="form-label" data-lang="pay-expiry">Expiry Date</label>
           <input class="form-input" id="cardExpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry()">
-          <div class="card-error" id="cardExpiryError">无效日期</div>
+          <div class="card-error" id="cardExpiryError" data-lang="pay-exp-error">Invalid date</div>
         </div>
         <div class="form-group">
-          <label class="form-label">CVV</label>
+          <label class="form-label" data-lang="pay-cvv">CVV</label>
           <input class="form-input" id="cardCvv" placeholder="•••" maxlength="4" type="password" oninput="updateCardPreview()">
-          <div class="card-error" id="cardCvvError">请输入 CVV</div>
+          <div class="card-error" id="cardCvvError" data-lang="pay-cvv-error">Enter CVV</div>
         </div>
       </div>
-
-      <p style="color:var(--text-dim); font-size:12px; text-align:center; margin-bottom:8px;">
-        🔒 已加密 · 安全支付通道
-      </p>
-      <button class="pay-btn" id="payBtn" onclick="processPayment()">支付 ¥0</button>
+      <p style="color:var(--text-dim);font-size:12px;text-align:center;margin-bottom:6px;">🔒 <span data-lang="pay-secure">End-to-end encrypted · Secure payment</span></p>
+      <button class="pay-btn" id="payBtn" onclick="processPayment()"><span data-lang="pay-pay">Pay</span> £0</button>
     </div>
-
-    <!-- Payment Success -->
     <div class="pay-success" id="paymentSuccess" style="display:none;">
       <div class="pay-success-icon">✅</div>
-      <h3>支付<strong>成功</strong> 🎉</h3>
-      <p>您的订单已提交，我们会尽快处理。</p>
-      <p>订单编号</p>
+      <h3 data-lang="pay-success"><strong>Payment</strong> Successful! 🎉</h3>
+      <p data-lang="pay-success-p1">Your order has been placed. We'll process it shortly.</p>
+      <p data-lang="pay-success-p2">Order Reference</p>
       <div class="order-id" id="orderId">ORD-000000</div>
-      <p style="margin-top:16px; color:var(--text-dim);">
-        客服将在 30 分钟内与您联系确认<br>
-        📞 400-888-6688
-      </p>
-      <button class="continue-btn" onclick="closePayment()">继续选购</button>
+      <p style="margin-top:14px;color:var(--text-dim);" data-lang="pay-success-p3">We'll contact you within 30 minutes<br>📞 +44 20 7123 4567</p>
+      <button class="continue-btn" onclick="closePayment()" data-lang="pay-continue">Continue Shopping</button>
     </div>
   </div>
 </div>
 
 <script>
-// Product Data
+// ===== LANGUAGES =====
+const lang = {
+  en: {
+    'tagline-logo':' Music',
+    'nav-home':'Home','nav-shop':'Shop','nav-about':'About','nav-contact':'Contact',
+    'hero-title':'Every <strong>Instrument</strong><br>Is A <strong>Masterpiece</strong>',
+    'hero-sub':'PREMIUM MUSICAL INSTRUMENTS — LONDON, UK',
+    'hero-btn':'Explore Collection',
+    'shop-title':'Premium <strong>Instruments</strong>',
+    'shop-sub':'Curated finest brands from around the world',
+    'filter-all':'All','filter-piano':'Piano','filter-guitar':'Guitar',
+    'filter-strings':'Strings','filter-wind':'Wind','filter-percussion':'Percussion',
+    'about-title':'About <strong>Evening</strong>','about-sub':'More than instruments — we deliver the soul of music',
+    'about-heading':'Since <strong>2016</strong>, London\'s Finest Instrument Boutique',
+    'about-p1':'Evening Music was founded by a group of passionate musicians in the heart of London. We travel the globe — from Steinway\'s Hamburg factory to the violin workshops of Cremona, from Gibson\'s Nashville custom shop to the Yamaha atelier in Tokyo — to bring the world\'s finest instruments to you.',
+    'about-p2':'Every instrument is meticulously set up by our master technicians before it leaves our showroom. We believe a great instrument unlocks limitless creativity.',
+    'about-tag':'✨ 14-Day Returns · Lifetime Support · Complimentary Shipping',
+    'contact-title':'Get In <strong>Touch</strong>','contact-sub':'Visit our showroom to experience the instruments in person',
+    'con-add-title':'Address','con-hours-title':'Opening Hours','con-contact-title':'Contact',
+    'con-hours':'Mon — Sat  10:00 – 19:00<br>Sunday  11:00 – 17:00',
+    'footer':'© 2026 Evening Music, London. All rights reserved. · Every Instrument Is A Masterpiece',
+    'cart-title':'🛒 Your Cart','cart-empty':'Your cart is empty','cart-total-label':'Total','cart-checkout':'CHECKOUT',
+    'review-title':'⭐ Customer <strong>Reviews</strong>',
+    'pay-title':'Secure','pay-title2':'Payment','pay-name':'Cardholder Name','pay-number':'Card Number',
+    'pay-expiry':'Expiry Date','pay-cvv':'CVV','pay-num-error':'Invalid card number',
+    'pay-exp-error':'Invalid date','pay-cvv-error':'Enter CVV','pay-secure':'End-to-end encrypted · Secure payment',
+    'pay-pay':'Pay',
+    'pay-success':'<strong>Payment</strong> Successful! 🎉',
+    'pay-success-p1':'Your order has been placed. We\'ll process it shortly.',
+    'pay-success-p2':'Order Reference','pay-success-p3':'We\'ll contact you within 30 minutes<br>📞 +44 20 7123 4567',
+    'pay-continue':'Continue Shopping',
+    'review-btn':'Reviews','add-cart':'Add to Cart','badge-flagship':'Flagship','badge-hot':'Hot','badge-classic':'Classic',
+    'badge-new':'New','badge-vintage':'Vintage',
+    'product-sold':'sold','product-rating-out':'out of','verified-buyer':'Verified Buyer',
+  },
+  zh: {
+    'tagline-logo':' 乐器行',
+    'nav-home':'首页','nav-shop':'乐器','nav-about':'关于','nav-contact':'联系',
+    'hero-title':'每一件<strong>乐器</strong><br>都是一件<strong>艺术品</strong>',
+    'hero-sub':'高端精品乐器 — 英国伦敦',
+    'hero-btn':'探索精品',
+    'shop-title':'精品<strong>乐器</strong>',
+    'shop-sub':'精选全球顶级品牌，为每一位音乐人而来',
+    'filter-all':'全部','filter-piano':'钢琴','filter-guitar':'吉他',
+    'filter-strings':'弦乐','filter-wind':'管乐','filter-percussion':'打击乐',
+    'about-title':'关于<strong> Evening</strong>','about-sub':'不仅仅是乐器，我们传递音乐的灵魂',
+    'about-heading':'始于 <strong>2016</strong>，伦敦顶级乐器精品店',
+    'about-p1':'Evening Music 由一群热爱音乐的人在伦敦创立。我们走遍全球——从施坦威的汉堡工厂到克雷莫纳的小提琴作坊，从吉布森的纳什维尔定制店到雅马哈的东京工坊——只为将世界最好的乐器带到你手中。',
+    'about-p2':'每一件乐器在售出前都经过我们专业技师的精细调校。我们相信，好的乐器能激发无限的创作灵感。',
+    'about-tag':'✨ 14天无理由退换 · 终身技术支持 · 免费配送',
+    'contact-title':'联系<strong>我们</strong>','contact-sub':'欢迎光临展厅，亲身感受每一件乐器的魅力',
+    'con-add-title':'门店地址','con-hours-title':'营业时间','con-contact-title':'联系方式',
+    'con-hours':'周一至周六 &nbsp;10:00 – 19:00<br>星期日 &nbsp;11:00 – 17:00',
+    'footer':'© 2026 Evening Music, London. 保留所有权利 · 每一件都是艺术品',
+    'cart-title':'🛒 购物车','cart-empty':'购物车还是空的呢～','cart-total-label':'合计','cart-checkout':'立即结算',
+    'review-title':'⭐ 客户<strong>评价</strong>',
+    'pay-title':'安全','pay-title2':'支付','pay-name':'持卡人姓名','pay-number':'卡号',
+    'pay-expiry':'有效期','pay-cvv':'CVV','pay-num-error':'请输入有效卡号',
+    'pay-exp-error':'无效日期','pay-cvv-error':'请输入 CVV','pay-secure':'已加密 · 安全支付通道',
+    'pay-pay':'支付',
+    'pay-success':'<strong>支付</strong>成功 🎉',
+    'pay-success-p1':'您的订单已提交，我们会尽快处理。',
+    'pay-success-p2':'订单编号','pay-success-p3':'客服将在 30 分钟内与您联系确认<br>📞 +44 20 7123 4567',
+    'pay-continue':'继续选购',
+    'review-btn':'评价','add-cart':'加入购物车','badge-flagship':'旗舰','badge-hot':'热卖','badge-classic':'经典',
+    'badge-new':'新品','badge-vintage':'珍品',
+    'product-sold':'已售','product-rating-out':'分','verified-buyer':'已认证买家',
+  }
+};
+let currentLang = 'en';
+
+function t(key) {
+  return lang[currentLang][key] || lang['en'][key] || key;
+}
+
+function setLang(l) {
+  currentLang = l;
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    const key = el.dataset.lang;
+    const val = t(key);
+    if (el.tagName === 'INPUT') el.placeholder = val;
+    else el.innerHTML = val;
+  });
+  document.getElementById('langToggle').textContent = l === 'en' ? '中文' : 'English';
+  // Re-render dynamic content
+  renderProducts(currentFilter);
+  updateCart();
+}
+
+function toggleLang() {
+  setLang(currentLang === 'en' ? 'zh' : 'en');
+}
+
+// ===== PRODUCTS =====
 const products = [
-  { id:1, name:'施坦威 D-274 音乐会三角钢琴', brand:'Steinway & Sons', category:'piano', price:1680000, rating:5, desc:'殿堂级音乐会钢琴，全球顶级音乐厅的首选。纯手工打造，一年仅生产数十台。', badge:'旗舰', img:'https://images.unsplash.com/photo-1520523839897-bd0b52f1e670?w=600&q=80' },
-  { id:2, name:'雅马哈 C7X 三角钢琴', brand:'Yamaha', category:'piano', price:458000, rating:5, desc:'日本原装进口，CX系列旗舰型号。音色温暖饱满，触感细腻，适合专业演奏与教学。', badge:'热卖', img:'https://images.unsplash.com/photo-1552422535-c45813c61732?w=600&q=80' },
-  { id:3, name:'马丁 D-28 原声吉他', brand:'Martin', category:'guitar', price:32800, rating:5, desc:'美产全单板民谣吉他之王，云杉面板+东印度玫瑰木背侧，温暖而富有穿透力的音色。', badge:'经典', img:'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=80' },
-  { id:4, name:'Gibson Les Paul Standard 60s', brand:'Gibson', category:'guitar', price:26800, rating:4, desc:'电吉他传奇，AAA火焰枫木贴面，Burstbucker拾音器，摇滚与蓝调的终极武器。', badge:'经典', img:'https://images.unsplash.com/photo-1550985616-0099ce4a5b9d?w=600&q=80' },
-  { id:5, name:'Fender American Pro II Stratocaster', brand:'Fender', category:'guitar', price:17800, rating:4, desc:'美产专业系列，V-Mod II拾音器，深"C"型琴颈，清音通透，过载有力。', badge:'热卖', img:'https://images.unsplash.com/photo-1564186767635-18faf3f9eb1c?w=600&q=80' },
-  { id:6, name:'Taylor 814ce 原声电箱吉他', brand:'Taylor', category:'guitar', price:35800, rating:5, desc:'美产高端系列，西加云杉+印度玫瑰木，ES2拾音系统，演出录音两相宜。', img:'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=600&q=80' },
-  { id:7, name:'斯特拉迪瓦里仿制小提琴', brand:'Cremona Master', category:'strings', price:88000, rating:5, desc:'意大利克雷莫纳手工制作，精选风干20年欧洲枫木，音色醇厚如陈年美酒。', badge:'珍品', img:'https://images.unsplash.com/photo-1609593334492-e751c3cc8474?w=600&q=80' },
-  { id:8, name:'雅马哈 SVC-210 静音大提琴', brand:'Yamaha', category:'strings', price:12800, rating:4, desc:'静音电大提琴，可接耳机练习不扰民。内置混响效果，演出携带极其方便。', badge:'新品', img:'https://images.unsplash.com/photo-1536431311809-bfdb285d0c85?w=600&q=80' },
-  { id:9, name:'Selmer Paris Reference 54 中音萨克斯', brand:'Selmer', category:'wind', price:56800, rating:5, desc:'法国纯手工萨克斯之王，致敬传奇Mark VI。音色丝滑饱满，响应极快。', badge:'旗舰', img:'https://images.unsplash.com/photo-1573871669414-036dbf673374?w=600&q=80' },
-  { id:10, name:'雅马哈 YFL-577H 长笛', brand:'Yamaha', category:'wind', price:16800, rating:4, desc:'日产专业级长笛，纯银笛头+管身，法式按键，音色纯净明亮。', img:'https://images.unsplash.com/photo-1487887235945-a955cd654d35?w=600&q=80' },
-  { id:11, name:'Bach Stradivarius 180S37 小号', brand:'Bach', category:'wind', price:22800, rating:5, desc:'美产专业小号标杆，标准重量黄铜管身，#37喇叭口，交响乐团标配。', badge:'经典', img:'https://images.unsplash.com/photo-1511192336575-54141c18e220?w=600&q=80' },
-  { id:12, name:'DW Collector\'s 系列架子鼓', brand:'DW', category:'percussion', price:52000, rating:5, desc:'美产定制套鼓，枫木鼓腔，音色深沉有力。从爵士到摇滚，无所不能。', badge:'旗舰', img:'https://images.unsplash.com/photo-1461784121038-f088c6717f42?w=600&q=80' },
-  { id:13, name:'Roland TD-27KV 电子鼓', brand:'Roland', category:'percussion', price:15800, rating:4, desc:'旗舰级电子鼓，网状鼓面手感真实，内置蓝牙/USB录音，静音练习神器。', badge:'新品', img:'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80' },
-  { id:14, name:'Nord Stage 4 88 舞台电钢琴', brand:'Nord', category:'piano', price:38800, rating:5, desc:'瑞典旗舰舞台键盘，三层音色引擎，FATAR全配重键盘，现场演出终极利器。', badge:'热卖', img:'https://images.unsplash.com/photo-1507838153414-b4b713388a76?w=600&q=80' },
-  { id:15, name:'Kamaka HF-3 夏威夷相思木尤克里里', brand:'Kamaka', category:'guitar', price:8800, rating:5, desc:'夏威夷百年品牌，全单相思木，音色甜美如热带海风。收藏级品质。', badge:'珍品', img:'https://images.unsplash.com/photo-1546443964-1cf48e4e1e01?w=600&q=80' },
+  { id:1, name_en:'Steinway & Sons D-274 Concert Grand Piano', name_zh:'施坦威 D-274 音乐会三角钢琴', brand:'Steinway & Sons', category:'piano', price:1680000, rating:5, desc_en:'The world\'s most revered concert grand piano. Handcrafted in Hamburg — fewer than 50 made per year. 9-foot powerhouse.', desc_zh:'殿堂级音乐会钢琴，全球顶级音乐厅的首选。纯手工打造，一年仅生产数十台。', badge:'flagship', img:'https://images.unsplash.com/photo-1520523839897-bd0b52f1e670?w=600&q=80', reviews:[{name:'James M.',stars:5,date:'Jun 2026',text:'Absolute masterpiece. The tone is simply unrivalled. Worth every penny.',verified:true},{name:'Sarah K.',stars:5,date:'May 2026',text:'As a concert pianist, this instrument is my dream come true. Action is sublime.',verified:true}] },
+  { id:2, name_en:'Yamaha C7X Grand Piano', name_zh:'雅马哈 C7X 三角钢琴', brand:'Yamaha', category:'piano', price:458000, rating:5, desc_en:'Flagship of the CX concert series from Japan. Warm, rich tone with an exceptionally responsive touch.', desc_zh:'日本原装进口，CX系列旗舰型号。音色温暖饱满，触感细腻，适合专业演奏。', badge:'hot', img:'https://images.unsplash.com/photo-1552422535-c45813c61732?w=600&q=80', reviews:[{name:'Takeshi N.',stars:5,date:'Jun 2026',text:'Perfect for our recording studio. The dynamic range is incredible.',verified:true},{name:'Emma L.',stars:5,date:'Apr 2026',text:'Beautiful sustain and a singing treble. Yamaha at its finest.',verified:true}] },
+  { id:3, name_en:'Martin D-28 Acoustic Guitar', name_zh:'马丁 D-28 原声吉他', brand:'Martin', category:'guitar', price:32800, rating:5, desc_en:'The king of dreadnoughts. Solid spruce top, East Indian rosewood back & sides — warm, projecting voice.', desc_zh:'美产全单板民谣吉他之王，云杉面板+东印度玫瑰木背侧，温暖而富有穿透力。', badge:'classic', img:'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=80', reviews:[{name:'Tom H.',stars:5,date:'May 2026',text:'This D-28 has the legendary Martin tone. Rich, balanced, and loud.',verified:true},{name:'Lucy C.',stars:5,date:'Mar 2026',text:'Best acoustic I\'ve ever owned. The bass response is phenomenal.',verified:true}] },
+  { id:4, name_en:'Gibson Les Paul Standard 60s', name_zh:'Gibson Les Paul Standard 60s', brand:'Gibson', category:'guitar', price:26800, rating:4, desc_en:'Iconic electric guitar. AAA flame maple top, Burstbucker pickups — the ultimate rock & blues machine.', desc_zh:'电吉他传奇，AAA火焰枫木贴面，Burstbucker拾音器，摇滚与蓝调的终极武器。', badge:'classic', img:'https://images.unsplash.com/photo-1550985616-0099ce4a5b9d?w=600&q=80', reviews:[{name:'Alex R.',stars:5,date:'Jun 2026',text:'Sustain for days. The neck feels incredible. Pure rock history.',verified:true},{name:'Mike D.',stars:4,date:'Apr 2026',text:'Great guitar, just needed a proper setup out of the box. Sounds amazing.',verified:true}] },
+  { id:5, name_en:'Fender American Pro II Stratocaster', name_zh:'Fender American Pro II Stratocaster', brand:'Fender', category:'guitar', price:17800, rating:4, desc_en:'USA-made professional series. V-Mod II pickups, Deep C neck — crystal cleans, creamy overdrive.', desc_zh:'美产专业系列，V-Mod II拾音器，深"C"型琴颈，清音通透，过载有力。', badge:'hot', img:'https://images.unsplash.com/photo-1564186767635-18faf3f9eb1c?w=600&q=80', reviews:[{name:'Chris B.',stars:5,date:'May 2026',text:'The new pickups are fantastic. Position 4 is pure magic.',verified:true},{name:'Jenny P.',stars:4,date:'Mar 2026',text:'Classic Strat tone. Lightweight and incredibly comfortable to play.',verified:true}] },
+  { id:6, name_en:'Taylor 814ce Acoustic-Electric', name_zh:'Taylor 814ce 原声电箱吉他', brand:'Taylor', category:'guitar', price:35800, rating:5, desc_en:'Premium USA-made Grand Auditorium. Sitka spruce, Indian rosewood, ES2 pickup — stage & studio ready.', desc_zh:'美产高端系列，西加云杉+印度玫瑰木，ES2拾音系统，演出录音两相宜。', img:'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=600&q=80', reviews:[{name:'David W.',stars:5,date:'Jun 2026',text:'Plugged in or acoustic, this guitar sounds stunning. The best Taylor I\'ve played.',verified:true}] },
+  { id:7, name_en:'Stradivarius Reproduction Violin', name_zh:'斯特拉迪瓦里仿制小提琴', brand:'Cremona Master', category:'strings', price:88000, rating:5, desc_en:'Handmade in Cremona, Italy. Aged European maple, 20-year seasoned spruce. A tone like aged wine.', desc_zh:'意大利克雷莫纳手工制作，精选风干20年欧洲枫木，音色醇厚如陈年美酒。', badge:'vintage', img:'https://images.unsplash.com/photo-1609593334492-e751c3cc8474?w=600&q=80', reviews:[{name:'Anna V.',stars:5,date:'May 2026',text:'The craftsmanship is breathtaking. Warm, complex tone that fills the hall.',verified:true},{name:'Robert K.',stars:5,date:'Apr 2026',text:'My teacher immediately noticed the difference. A true Italian instrument.',verified:true}] },
+  { id:8, name_en:'Yamaha SVC-210 Silent Cello', name_zh:'雅马哈 SVC-210 静音大提琴', brand:'Yamaha', category:'strings', price:12800, rating:4, desc_en:'Silent electric cello. Play with headphones — built-in reverb, lightweight, perfect for travel.', desc_zh:'静音电大提琴，可接耳机练习不扰民。内置混响效果，演出携带方便。', badge:'new', img:'https://images.unsplash.com/photo-1536431311809-bfdb285d0c85?w=600&q=80', reviews:[{name:'Sofia M.',stars:4,date:'Jun 2026',text:'Perfect for late-night practice. The built-in effects are surprisingly good.',verified:true}] },
+  { id:9, name_en:'Selmer Paris Reference 54 Alto Saxophone', name_zh:'Selmer Paris Reference 54 中音萨克斯', brand:'Selmer', category:'wind', price:56800, rating:5, desc_en:'Handmade in France, the legendary Mark VI tribute. Silky, fat tone with lightning-fast response.', desc_zh:'法国纯手工萨克斯之王，致敬传奇Mark VI。音色丝滑饱满，响应极快。', badge:'flagship', img:'https://images.unsplash.com/photo-1573871669414-036dbf673374?w=600&q=80', reviews:[{name:'Marcus J.',stars:5,date:'May 2026',text:'Played Mark VIs my whole life — this is the closest I\'ve ever heard. Simply sublime.',verified:true}] },
+  { id:10, name_en:'Yamaha YFL-577H Flute', name_zh:'雅马哈 YFL-577H 长笛', brand:'Yamaha', category:'wind', price:16800, rating:4, desc_en:'Professional-grade flute. Solid silver headjoint & body, French-style keys, pure bright tone.', desc_zh:'日产专业级长笛，纯银笛头+管身，法式按键，音色纯净明亮。', img:'https://images.unsplash.com/photo-1487887235945-a955cd654d35?w=600&q=80', reviews:[{name:'Yuki T.',stars:5,date:'Apr 2026',text:'The silver headjoint makes a huge difference. Smooth and responsive across all registers.',verified:true}] },
+  { id:11, name_en:'Bach Stradivarius 180S37 Trumpet', name_zh:'Bach Stradivarius 180S37 小号', brand:'Bach', category:'wind', price:22800, rating:5, desc_en:'Professional standard. Standard weight brass, #37 bell — the orchestral trumpet benchmark.', desc_zh:'美产专业小号标杆，标准重量黄铜管身，#37喇叭口，交响乐团标配。', badge:'classic', img:'https://images.unsplash.com/photo-1511192336575-54141c18e220?w=600&q=80', reviews:[{name:'Daniel F.',stars:5,date:'Jun 2026',text:'This is THE orchestral trumpet. Intonation is perfect, sound projects effortlessly.',verified:true},{name:'Clara S.',stars:5,date:'Mar 2026',text:'Upgraded from a student model — the difference is night and day. Incredible instrument.',verified:true}] },
+  { id:12, name_en:'DW Collector\'s Series Drum Kit', name_zh:'DW Collector\'s 系列架子鼓', brand:'DW', category:'percussion', price:52000, rating:5, desc_en:'USA custom maple kit. Deep, punchy tone. From jazz brushes to rock power — limitless versatility.', desc_zh:'美产定制套鼓，枫木鼓腔，音色深沉有力。从爵士到摇滚，无所不能。', badge:'flagship', img:'https://images.unsplash.com/photo-1461784121038-f088c6717f42?w=600&q=80', reviews:[{name:'Nate O.',stars:5,date:'May 2026',text:'The craftsmanship is unreal. Tuning is a dream — every drum sings perfectly.',verified:true}] },
+  { id:13, name_en:'Roland TD-27KV V-Drums', name_zh:'Roland TD-27KV 电子鼓', brand:'Roland', category:'percussion', price:15800, rating:4, desc_en:'Flagship electronic kit. Mesh heads feel like real drums, Bluetooth/USB recording, silent practice.', desc_zh:'旗舰级电子鼓，网状鼓面手感真实，内置蓝牙/USB录音，静音练习神器。', badge:'new', img:'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80', reviews:[{name:'Leo G.',stars:4,date:'Jun 2026',text:'Great electronic kit. The mesh heads feel surprisingly close to real drums.',verified:true}] },
+  { id:14, name_en:'Nord Stage 4 88 Stage Piano', name_zh:'Nord Stage 4 88 舞台电钢琴', brand:'Nord', category:'piano', price:38800, rating:5, desc_en:'Swedish flagship keyboard. Triple sound engines, FATAR weighted keys — the ultimate stage weapon.', desc_zh:'瑞典旗舰舞台键盘，三层音色引擎，FATAR全配重键盘，现场演出终极利器。', badge:'hot', img:'https://images.unsplash.com/photo-1513889961551-628c1e5e281e?w=600&q=80', reviews:[{name:'Oliver B.',stars:5,date:'May 2026',text:'The organ engine is incredible. This keyboard does everything and does it brilliantly.',verified:true}] },
+  { id:15, name_en:'Kamaka HF-3 Koa Ukulele', name_zh:'Kamaka HF-3 夏威夷相思木尤克里里', brand:'Kamaka', category:'guitar', price:8800, rating:5, desc_en:'Hawaii\'s legendary brand since 1916. Solid koa wood — sweet, warm tone like tropical breeze.', desc_zh:'夏威夷百年品牌，全单相思木，音色甜美如热带海风。收藏级品质。', badge:'vintage', img:'https://images.unsplash.com/photo-1546443964-1cf48e4e1e01?w=600&q=80', reviews:[{name:'Maya H.',stars:5,date:'Apr 2026',text:'Pure Hawaiian magic. The koa wood grain is stunning, and the sound is pure sweetness.',verified:true}] },
 ];
 
+// ===== LOCALISED HELPERS =====
+function pName(p) { return currentLang === 'zh' ? p.name_zh : p.name_en; }
+function pDesc(p) { return currentLang === 'zh' ? p.desc_zh : p.desc_en; }
+
+function formatPrice(p) {
+  if (p >= 10000) return '£' + (p/10000).toFixed(p%10000===0?0:1) + 'k';
+  return '£' + p.toLocaleString();
+}
+
+function badgeLabel(key) { return t('badge-' + key) || key; }
+
+// ===== RENDER =====
 let cart = [];
 let currentFilter = 'all';
 
-function formatPrice(p) {
-  if (p >= 10000) return '¥' + (p/10000).toFixed(p%10000===0?0:1) + '万';
-  return '¥' + p.toLocaleString();
-}
-
-function renderProducts(filter = 'all') {
+function renderProducts(filter) {
   const grid = document.getElementById('productsGrid');
-  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
-  grid.innerHTML = filtered.map(p => `
+  const f = filter || currentFilter;
+  const filtered = f === 'all' ? products : products.filter(p => p.category === f);
+  grid.innerHTML = filtered.map(p => {
+    const avgRev = p.reviews.reduce((s,r) => s + r.stars, 0) / p.reviews.length;
+    const fullStars = Math.round(avgRev);
+    return `
     <div class="product-card" onclick="quickAdd(${p.id}, event)">
       <div class="product-img-wrap">
-        <img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&q=80'">
+        <img class="product-img" src="${p.img}" alt="${pName(p)}" loading="lazy">
       </div>
-      ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      ${p.badge ? `<div class="product-badge">${badgeLabel(p.badge)}</div>` : ''}
       <div class="product-info">
         <div class="product-brand">${p.brand}</div>
-        <div class="product-name">${p.name}</div>
-        <div class="product-desc">${p.desc}</div>
+        <div class="product-name">${pName(p)}</div>
+        <div class="product-desc">${pDesc(p)}</div>
         <div class="product-footer">
           <div class="product-price">${formatPrice(p.price)}</div>
-          <div class="product-rating">${'★'.repeat(p.rating)}${'☆'.repeat(5-p.rating)}</div>
+          <div>
+            <div class="product-rating" onclick="event.stopPropagation();showReviews(${p.id})">${'★'.repeat(fullStars)}${'☆'.repeat(5-fullStars)}</div>
+            <div class="product-reviews" onclick="event.stopPropagation();showReviews(${p.id})">${p.reviews.length} ${t('review-btn')}</div>
+          </div>
         </div>
-        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">加入购物车</button>
+        <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">${t('add-cart')}</button>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 function filterProducts(cat, btn) {
@@ -614,63 +671,50 @@ function filterProducts(cat, btn) {
   renderProducts(cat);
 }
 
-function addToCart(productId) {
-  const p = products.find(x => x.id === productId);
-  const existing = cart.find(x => x.id === productId);
-  if (existing) { existing.qty++; }
-  else { cart.push({...p, qty:1}); }
+// ===== CART =====
+function addToCart(pid) {
+  const p = products.find(x => x.id === pid);
+  const e = cart.find(x => x.id === pid);
+  if (e) e.qty++;
+  else cart.push({...p, qty:1});
   updateCart();
-  showToast(`已加入购物车：${p.name.substring(0,15)}...`);
+  showToast(currentLang === 'zh' ? '已加入购物车' : 'Added to cart ✓');
 }
 
-function quickAdd(productId, event) {
-  if (event.target.closest('.add-cart-btn')) return;
-  addToCart(productId);
-}
+function quickAdd(pid, e) { if (!e.target.closest('.add-cart-btn') && !e.target.closest('.product-reviews') && !e.target.closest('.product-rating')) addToCart(pid); }
 
-function removeFromCart(productId) {
-  cart = cart.filter(x => x.id !== productId);
-  updateCart();
-}
-
-function changeQty(productId, delta) {
-  const item = cart.find(x => x.id === productId);
+function removeFromCart(pid) { cart = cart.filter(x => x.id !== pid); updateCart(); }
+function changeQty(pid, d) {
+  const item = cart.find(x => x.id === pid);
   if (!item) return;
-  item.qty += delta;
-  if (item.qty <= 0) { removeFromCart(productId); return; }
+  item.qty += d;
+  if (item.qty <= 0) { removeFromCart(pid); return; }
   updateCart();
 }
 
 function updateCart() {
   const count = cart.reduce((s,x) => s + x.qty, 0);
-  const countEl = document.getElementById('cartCount');
-  countEl.textContent = count;
-  countEl.classList.toggle('show', count > 0);
-
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartCount').classList.toggle('show', count > 0);
   const total = cart.reduce((s,x) => s + x.price * x.qty, 0);
   document.getElementById('cartTotalPrice').textContent = formatPrice(total);
   document.getElementById('cartFooter').style.display = cart.length ? 'block' : 'none';
-
-  const itemsEl = document.getElementById('cartItems');
-  if (cart.length === 0) {
-    itemsEl.innerHTML = '<div class="cart-empty">购物车还是空的呢～</div>';
-  } else {
-    itemsEl.innerHTML = cart.map(item => `
-      <div class="cart-item">
-        <img class="cart-item-img" src="${item.img}" alt="${item.name}">
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">${formatPrice(item.price)}</div>
-          <div class="cart-item-qty">
-            <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
-            <span>${item.qty}</span>
-            <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
-          </div>
+  const el = document.getElementById('cartItems');
+  if (!cart.length) { el.innerHTML = `<div class="cart-empty">${t('cart-empty')}</div>`; return; }
+  el.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img class="cart-item-img" src="${item.img}" alt="${pName(item)}">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${pName(item)}</div>
+        <div class="cart-item-price">${formatPrice(item.price)}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+          <span>${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
         </div>
-        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">🗑</button>
       </div>
-    `).join('');
-  }
+      <button class="cart-item-remove" onclick="removeFromCart(${item.id})">🗑</button>
+    </div>`).join('');
 }
 
 function toggleCart() {
@@ -678,26 +722,38 @@ function toggleCart() {
   document.getElementById('cartSidebar').classList.toggle('open');
 }
 
+// ===== REVIEWS =====
+function showReviews(pid) {
+  const p = products.find(x => x.id === pid);
+  if (!p || !p.reviews.length) return;
+  const el = document.getElementById('reviewList');
+  el.innerHTML = p.reviews.map(r => `
+    <div class="review-item">
+      <div class="review-header">
+        <div>
+          <span class="review-name">${r.name}</span>
+          ${r.verified ? `<span style="color:var(--green);font-size:11px;margin-left:6px;">✓ ${t('verified-buyer')}</span>` : ''}
+        </div>
+        <span class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</span>
+      </div>
+      <div class="review-date">${r.date}</div>
+      <div class="review-text">${r.text}</div>
+    </div>`).join('');
+  document.getElementById('reviewOverlay').classList.add('open');
+}
+function closeReview(e) { if (!e || e.target === document.getElementById('reviewOverlay')) document.getElementById('reviewOverlay').classList.remove('open'); }
+
+// ===== CHECKOUT / PAYMENT =====
 function checkout() {
-  if (cart.length === 0) return;
+  if (!cart.length) return;
   const total = cart.reduce((s,x) => s + x.price * x.qty, 0);
-  // Build summary
   const summary = document.getElementById('paymentSummary');
   summary.innerHTML = cart.map(item => `
-    <div class="payment-summary-item">
-      <span>${item.name} × ${item.qty}</span>
-      <span>${formatPrice(item.price * item.qty)}</span>
-    </div>
-  `).join('') + `
-    <div class="payment-summary-total">
-      <span>合计</span>
-      <span>${formatPrice(total)}</span>
-    </div>
-  `;
-  // Reset form
+    <div class="payment-summary-item"><span>${pName(item)} × ${item.qty}</span><span>${formatPrice(item.price * item.qty)}</span></div>
+  `).join('') + `<div class="payment-summary-total"><span>${t('cart-total-label')}</span><span>${formatPrice(total)}</span></div>`;
   document.getElementById('paymentForm').style.display = 'block';
   document.getElementById('paymentSuccess').style.display = 'none';
-  document.getElementById('payBtn').textContent = '支付 ' + formatPrice(total);
+  document.getElementById('payBtn').innerHTML = `${t('pay-pay')} ${formatPrice(total)}`;
   document.getElementById('cardName').value = '';
   document.getElementById('cardNumber').value = '';
   document.getElementById('cardExpiry').value = '';
@@ -711,115 +767,69 @@ function checkout() {
   document.getElementById('cartSidebar').classList.remove('open');
   document.getElementById('cartOverlay').classList.remove('open');
 }
-
-function closePayment(e) {
-  if (e && e.target !== document.getElementById('paymentOverlay')) return;
-  document.getElementById('paymentOverlay').classList.remove('open');
-}
+function closePayment(e) { if (!e || e.target === document.getElementById('paymentOverlay')) document.getElementById('paymentOverlay').classList.remove('open'); }
 
 function formatCardNumber() {
-  const input = document.getElementById('cardNumber');
-  let val = input.value.replace(/\D/g, '').substring(0, 16);
-  let formatted = val.replace(/(.{4})/g, '$1 ').trim();
-  input.value = formatted;
+  const inp = document.getElementById('cardNumber');
+  let val = inp.value.replace(/\D/g,'').substring(0,16);
+  inp.value = val.replace(/(.{4})/g,'$1 ').trim();
   updateCardPreview();
-  detectCardBrand(val);
+  const b = document.getElementById('cardBrand');
+  if (val.startsWith('4')) b.textContent = '💳 Visa';
+  else if (val.startsWith('5')) b.textContent = '💳 Mastercard';
+  else if (val.startsWith('3')) b.textContent = '💳 Amex';
+  else if (val.startsWith('6')) b.textContent = '💳 Discover';
+  else b.textContent = '💳';
 }
-
-function detectCardBrand(num) {
-  const brand = document.getElementById('cardBrand');
-  if (num.startsWith('4')) brand.textContent = '💳 Visa';
-  else if (num.startsWith('5')) brand.textContent = '💳 Mastercard';
-  else if (num.startsWith('3')) brand.textContent = '💳 Amex';
-  else if (num.startsWith('6')) brand.textContent = '💳 Discover';
-  else brand.textContent = '💳';
-}
-
 function formatExpiry() {
-  const input = document.getElementById('cardExpiry');
-  let val = input.value.replace(/\D/g, '').substring(0, 4);
-  if (val.length >= 2) val = val.substring(0,2) + '/' + val.substring(2);
-  input.value = val;
-  updateCardPreview();
+  const inp = document.getElementById('cardExpiry');
+  let val = inp.value.replace(/\D/g,'').substring(0,4);
+  if (val.length >= 2) val = val.substring(0,2)+'/'+val.substring(2);
+  inp.value = val; updateCardPreview();
 }
-
 function updateCardPreview() {
-  const num = document.getElementById('cardNumber').value || '••••  ••••  ••••  ••••';
-  document.getElementById('cardNumberDisplay').textContent = num || '••••  ••••  ••••  ••••';
-  const name = document.getElementById('cardName').value.toUpperCase() || 'CARDHOLDER NAME';
-  document.getElementById('cardNameDisplay').textContent = name;
-  const exp = document.getElementById('cardExpiry').value || 'MM/YY';
-  document.getElementById('cardExpDisplay').textContent = exp;
+  document.getElementById('cardNumberDisplay').textContent = document.getElementById('cardNumber').value || '••••  ••••  ••••  ••••';
+  document.getElementById('cardNameDisplay').textContent = document.getElementById('cardName').value.toUpperCase() || 'CARDHOLDER NAME';
+  document.getElementById('cardExpDisplay').textContent = document.getElementById('cardExpiry').value || 'MM/YY';
 }
-
 function validateCard() {
-  let valid = true;
-  const num = document.getElementById('cardNumber').value.replace(/\s/g, '');
+  let v = true;
+  const num = document.getElementById('cardNumber').value.replace(/\s/g,'');
   const exp = document.getElementById('cardExpiry').value;
   const cvv = document.getElementById('cardCvv').value;
-
-  if (num.length < 13 || num.length > 16) {
-    document.getElementById('cardNumberError').classList.add('show');
-    valid = false;
-  } else {
-    document.getElementById('cardNumberError').classList.remove('show');
+  if (num.length<13||num.length>16) { document.getElementById('cardNumberError').classList.add('show'); v=false; } else document.getElementById('cardNumberError').classList.remove('show');
+  if (!/^\d{2}\/\d{2}$/.test(exp)) { document.getElementById('cardExpiryError').classList.add('show'); v=false; }
+  else {
+    const [mm,yy] = exp.split('/');
+    const m=parseInt(mm), y=parseInt(yy)+2000, now=new Date();
+    if (m<1||m>12||y<now.getFullYear()||(y===now.getFullYear()&&m<now.getMonth()+1)) {
+      document.getElementById('cardExpiryError').textContent = currentLang==='zh'?'卡片已过期':'Card expired';
+      document.getElementById('cardExpiryError').classList.add('show'); v=false;
+    } else document.getElementById('cardExpiryError').classList.remove('show');
   }
-
-  if (!/^\d{2}\/\d{2}$/.test(exp)) {
-    document.getElementById('cardExpiryError').classList.add('show');
-    valid = false;
-  } else {
-    const [mm, yy] = exp.split('/');
-    const m = parseInt(mm), y = parseInt(yy) + 2000;
-    const now = new Date();
-    if (m < 1 || m > 12 || y < now.getFullYear() || (y === now.getFullYear() && m < now.getMonth() + 1)) {
-      document.getElementById('cardExpiryError').textContent = '卡片已过期';
-      document.getElementById('cardExpiryError').classList.add('show');
-      valid = false;
-    } else {
-      document.getElementById('cardExpiryError').classList.remove('show');
-    }
-  }
-
-  if (cvv.length < 3) {
-    document.getElementById('cardCvvError').classList.add('show');
-    valid = false;
-  } else {
-    document.getElementById('cardCvvError').classList.remove('show');
-  }
-
-  return valid;
+  if (cvv.length<3) { document.getElementById('cardCvvError').classList.add('show'); v=false; } else document.getElementById('cardCvvError').classList.remove('show');
+  return v;
 }
-
 function processPayment() {
   if (!validateCard()) return;
-  const total = cart.reduce((s,x) => s + x.price * x.qty, 0);
-  const payBtn = document.getElementById('payBtn');
-  payBtn.disabled = true;
-  payBtn.textContent = '处理中...';
-
-  // Simulate payment processing
+  const btn = document.getElementById('payBtn'); btn.disabled=true; btn.innerHTML = currentLang==='zh'?'处理中...':'Processing...';
   setTimeout(() => {
-    const orderId = 'ORD-' + Date.now().toString(36).toUpperCase();
-    document.getElementById('paymentForm').style.display = 'none';
-    document.getElementById('paymentSuccess').style.display = 'block';
-    document.getElementById('orderId').textContent = orderId;
-    cart = [];
-    updateCart();
-  }, 1500);
+    const oid = 'EVN-' + Date.now().toString(36).toUpperCase();
+    document.getElementById('paymentForm').style.display='none';
+    document.getElementById('paymentSuccess').style.display='block';
+    document.getElementById('orderId').textContent = oid;
+    cart = []; updateCart();
+    btn.disabled=false;
+  }, 1200);
 }
-
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._timeout);
-  t._timeout = setTimeout(() => t.classList.remove('show'), 2000);
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._timeout); t._timeout=setTimeout(()=>t.classList.remove('show'),2000);
 }
 
-// Init
+// ===== INIT =====
 renderProducts();
 </script>
-
 </body>
 </html>
