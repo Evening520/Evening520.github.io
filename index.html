@@ -440,17 +440,6 @@ footer { text-align:center; padding:40px; border-top:1px solid var(--border); co
   </div>
 </div>
 
-<!-- Review Modal -->
-<div class="review-overlay" id="reviewOverlay" onclick="closeReview(event)">
-  <div class="review-modal" onclick="event.stopPropagation()">
-    <div class="payment-header">
-      <h3 data-lang="review-title">⭐ Customer <strong>Reviews</strong></h3>
-      <button class="payment-close" onclick="closeReview()">✕</button>
-    </div>
-    <div id="reviewList"></div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <!-- Payment Modal -->
@@ -529,18 +518,15 @@ const lang = {
     'con-hours':'Mon — Sat  10:00 – 19:00<br>Sunday  11:00 – 17:00',
     'footer':'© 2026 Evening Music, London. All rights reserved. · Every Instrument Is A Masterpiece',
     'cart-title':'🛒 Your Cart','cart-empty':'Your cart is empty','cart-total-label':'Total','cart-checkout':'CHECKOUT',
-    'review-title':'⭐ Customer <strong>Reviews</strong>',
     'pay-title':'Secure','pay-title2':'Payment','pay-name':'Cardholder Name','pay-number':'Card Number',
     'pay-expiry':'Expiry Date','pay-cvv':'CVV','pay-num-error':'Invalid card number',
     'pay-exp-error':'Invalid date','pay-cvv-error':'Enter CVV','pay-secure':'End-to-end encrypted · Secure payment',
     'pay-pay':'Pay',
     'pay-success':'<strong>Payment</strong> Successful! 🎉',
     'pay-success-p1':'Your order has been placed. We\'ll process it shortly.',
-    'pay-success-p2':'Order Reference','pay-success-p3':'We\'ll contact you within 30 minutes<br>📞 +44 20 7123 4567',
     'pay-continue':'Continue Shopping',
-    'review-btn':'Reviews','add-cart':'Add to Cart','badge-flagship':'Flagship','badge-hot':'Hot','badge-classic':'Classic',
+    'add-cart':'Add to Cart','badge-flagship':'Flagship','badge-hot':'Hot','badge-classic':'Classic',
     'badge-new':'New','badge-vintage':'Vintage',
-    'product-sold':'sold','product-rating-out':'out of','verified-buyer':'Verified Buyer',
   },
   zh: {
     'tagline-logo':' 乐器行',
@@ -562,7 +548,6 @@ const lang = {
     'con-hours':'周一至周六 &nbsp;10:00 – 19:00<br>星期日 &nbsp;11:00 – 17:00',
     'footer':'© 2026 Evening Music, London. 保留所有权利 · 每一件都是艺术品',
     'cart-title':'🛒 购物车','cart-empty':'购物车还是空的呢～','cart-total-label':'合计','cart-checkout':'立即结算',
-    'review-title':'⭐ 客户<strong>评价</strong>',
     'pay-title':'安全','pay-title2':'支付','pay-name':'持卡人姓名','pay-number':'卡号',
     'pay-expiry':'有效期','pay-cvv':'CVV','pay-num-error':'请输入有效卡号',
     'pay-exp-error':'无效日期','pay-cvv-error':'请输入 CVV','pay-secure':'已加密 · 安全支付通道',
@@ -571,9 +556,8 @@ const lang = {
     'pay-success-p1':'您的订单已提交，我们会尽快处理。',
     'pay-success-p2':'订单编号','pay-success-p3':'客服将在 30 分钟内与您联系确认<br>📞 +44 20 7123 4567',
     'pay-continue':'继续选购',
-    'review-btn':'评价','add-cart':'加入购物车','badge-flagship':'旗舰','badge-hot':'热卖','badge-classic':'经典',
+    'add-cart':'加入购物车','badge-flagship':'旗舰','badge-hot':'热卖','badge-classic':'经典',
     'badge-new':'新品','badge-vintage':'珍品',
-    'product-sold':'已售','product-rating-out':'分','verified-buyer':'已认证买家',
   }
 };
 let currentLang = 'en';
@@ -602,21 +586,21 @@ function toggleLang() {
 
 // ===== PRODUCTS =====
 const products = [
-  { id:1, name_en:'Steinway & Sons D-274 Concert Grand Piano', name_zh:'施坦威 D-274 音乐会三角钢琴', brand:'Steinway & Sons', category:'piano', price:1680000, rating:5, desc_en:'The world\'s most revered concert grand piano. Handcrafted in Hamburg — fewer than 50 made per year. 9-foot powerhouse.', desc_zh:'殿堂级音乐会钢琴，全球顶级音乐厅的首选。纯手工打造，一年仅生产数十台。', badge:'flagship', img:'https://images.unsplash.com/photo-1520523839897-bd0b52f1e670?w=600&q=80', reviews:[{name:'James M.',stars:5,date:'Jun 2026',text:'Absolute masterpiece. The tone is simply unrivalled. Worth every penny.',verified:true},{name:'Sarah K.',stars:5,date:'May 2026',text:'As a concert pianist, this instrument is my dream come true. Action is sublime.',verified:true}] },
-  { id:2, name_en:'Yamaha C7X Grand Piano', name_zh:'雅马哈 C7X 三角钢琴', brand:'Yamaha', category:'piano', price:458000, rating:5, desc_en:'Flagship of the CX concert series from Japan. Warm, rich tone with an exceptionally responsive touch.', desc_zh:'日本原装进口，CX系列旗舰型号。音色温暖饱满，触感细腻，适合专业演奏。', badge:'hot', img:'https://images.unsplash.com/photo-1552422535-c45813c61732?w=600&q=80', reviews:[{name:'Takeshi N.',stars:5,date:'Jun 2026',text:'Perfect for our recording studio. The dynamic range is incredible.',verified:true},{name:'Emma L.',stars:5,date:'Apr 2026',text:'Beautiful sustain and a singing treble. Yamaha at its finest.',verified:true}] },
-  { id:3, name_en:'Martin D-28 Acoustic Guitar', name_zh:'马丁 D-28 原声吉他', brand:'Martin', category:'guitar', price:32800, rating:5, desc_en:'The king of dreadnoughts. Solid spruce top, East Indian rosewood back & sides — warm, projecting voice.', desc_zh:'美产全单板民谣吉他之王，云杉面板+东印度玫瑰木背侧，温暖而富有穿透力。', badge:'classic', img:'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=80', reviews:[{name:'Tom H.',stars:5,date:'May 2026',text:'This D-28 has the legendary Martin tone. Rich, balanced, and loud.',verified:true},{name:'Lucy C.',stars:5,date:'Mar 2026',text:'Best acoustic I\'ve ever owned. The bass response is phenomenal.',verified:true}] },
-  { id:4, name_en:'Gibson Les Paul Standard 60s', name_zh:'Gibson Les Paul Standard 60s', brand:'Gibson', category:'guitar', price:26800, rating:4, desc_en:'Iconic electric guitar. AAA flame maple top, Burstbucker pickups — the ultimate rock & blues machine.', desc_zh:'电吉他传奇，AAA火焰枫木贴面，Burstbucker拾音器，摇滚与蓝调的终极武器。', badge:'classic', img:'https://images.unsplash.com/photo-1550985616-0099ce4a5b9d?w=600&q=80', reviews:[{name:'Alex R.',stars:5,date:'Jun 2026',text:'Sustain for days. The neck feels incredible. Pure rock history.',verified:true},{name:'Mike D.',stars:4,date:'Apr 2026',text:'Great guitar, just needed a proper setup out of the box. Sounds amazing.',verified:true}] },
-  { id:5, name_en:'Fender American Pro II Stratocaster', name_zh:'Fender American Pro II Stratocaster', brand:'Fender', category:'guitar', price:17800, rating:4, desc_en:'USA-made professional series. V-Mod II pickups, Deep C neck — crystal cleans, creamy overdrive.', desc_zh:'美产专业系列，V-Mod II拾音器，深"C"型琴颈，清音通透，过载有力。', badge:'hot', img:'https://images.unsplash.com/photo-1564186767635-18faf3f9eb1c?w=600&q=80', reviews:[{name:'Chris B.',stars:5,date:'May 2026',text:'The new pickups are fantastic. Position 4 is pure magic.',verified:true},{name:'Jenny P.',stars:4,date:'Mar 2026',text:'Classic Strat tone. Lightweight and incredibly comfortable to play.',verified:true}] },
-  { id:6, name_en:'Taylor 814ce Acoustic-Electric', name_zh:'Taylor 814ce 原声电箱吉他', brand:'Taylor', category:'guitar', price:35800, rating:5, desc_en:'Premium USA-made Grand Auditorium. Sitka spruce, Indian rosewood, ES2 pickup — stage & studio ready.', desc_zh:'美产高端系列，西加云杉+印度玫瑰木，ES2拾音系统，演出录音两相宜。', img:'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=600&q=80', reviews:[{name:'David W.',stars:5,date:'Jun 2026',text:'Plugged in or acoustic, this guitar sounds stunning. The best Taylor I\'ve played.',verified:true}] },
-  { id:7, name_en:'Stradivarius Reproduction Violin', name_zh:'斯特拉迪瓦里仿制小提琴', brand:'Cremona Master', category:'strings', price:88000, rating:5, desc_en:'Handmade in Cremona, Italy. Aged European maple, 20-year seasoned spruce. A tone like aged wine.', desc_zh:'意大利克雷莫纳手工制作，精选风干20年欧洲枫木，音色醇厚如陈年美酒。', badge:'vintage', img:'https://images.unsplash.com/photo-1609593334492-e751c3cc8474?w=600&q=80', reviews:[{name:'Anna V.',stars:5,date:'May 2026',text:'The craftsmanship is breathtaking. Warm, complex tone that fills the hall.',verified:true},{name:'Robert K.',stars:5,date:'Apr 2026',text:'My teacher immediately noticed the difference. A true Italian instrument.',verified:true}] },
-  { id:8, name_en:'Yamaha SVC-210 Silent Cello', name_zh:'雅马哈 SVC-210 静音大提琴', brand:'Yamaha', category:'strings', price:12800, rating:4, desc_en:'Silent electric cello. Play with headphones — built-in reverb, lightweight, perfect for travel.', desc_zh:'静音电大提琴，可接耳机练习不扰民。内置混响效果，演出携带方便。', badge:'new', img:'https://images.unsplash.com/photo-1536431311809-bfdb285d0c85?w=600&q=80', reviews:[{name:'Sofia M.',stars:4,date:'Jun 2026',text:'Perfect for late-night practice. The built-in effects are surprisingly good.',verified:true}] },
-  { id:9, name_en:'Selmer Paris Reference 54 Alto Saxophone', name_zh:'Selmer Paris Reference 54 中音萨克斯', brand:'Selmer', category:'wind', price:56800, rating:5, desc_en:'Handmade in France, the legendary Mark VI tribute. Silky, fat tone with lightning-fast response.', desc_zh:'法国纯手工萨克斯之王，致敬传奇Mark VI。音色丝滑饱满，响应极快。', badge:'flagship', img:'https://images.unsplash.com/photo-1573871669414-036dbf673374?w=600&q=80', reviews:[{name:'Marcus J.',stars:5,date:'May 2026',text:'Played Mark VIs my whole life — this is the closest I\'ve ever heard. Simply sublime.',verified:true}] },
-  { id:10, name_en:'Yamaha YFL-577H Flute', name_zh:'雅马哈 YFL-577H 长笛', brand:'Yamaha', category:'wind', price:16800, rating:4, desc_en:'Professional-grade flute. Solid silver headjoint & body, French-style keys, pure bright tone.', desc_zh:'日产专业级长笛，纯银笛头+管身，法式按键，音色纯净明亮。', img:'https://images.unsplash.com/photo-1487887235945-a955cd654d35?w=600&q=80', reviews:[{name:'Yuki T.',stars:5,date:'Apr 2026',text:'The silver headjoint makes a huge difference. Smooth and responsive across all registers.',verified:true}] },
-  { id:11, name_en:'Bach Stradivarius 180S37 Trumpet', name_zh:'Bach Stradivarius 180S37 小号', brand:'Bach', category:'wind', price:22800, rating:5, desc_en:'Professional standard. Standard weight brass, #37 bell — the orchestral trumpet benchmark.', desc_zh:'美产专业小号标杆，标准重量黄铜管身，#37喇叭口，交响乐团标配。', badge:'classic', img:'https://images.unsplash.com/photo-1511192336575-54141c18e220?w=600&q=80', reviews:[{name:'Daniel F.',stars:5,date:'Jun 2026',text:'This is THE orchestral trumpet. Intonation is perfect, sound projects effortlessly.',verified:true},{name:'Clara S.',stars:5,date:'Mar 2026',text:'Upgraded from a student model — the difference is night and day. Incredible instrument.',verified:true}] },
-  { id:12, name_en:'DW Collector\'s Series Drum Kit', name_zh:'DW Collector\'s 系列架子鼓', brand:'DW', category:'percussion', price:52000, rating:5, desc_en:'USA custom maple kit. Deep, punchy tone. From jazz brushes to rock power — limitless versatility.', desc_zh:'美产定制套鼓，枫木鼓腔，音色深沉有力。从爵士到摇滚，无所不能。', badge:'flagship', img:'https://images.unsplash.com/photo-1461784121038-f088c6717f42?w=600&q=80', reviews:[{name:'Nate O.',stars:5,date:'May 2026',text:'The craftsmanship is unreal. Tuning is a dream — every drum sings perfectly.',verified:true}] },
-  { id:13, name_en:'Roland TD-27KV V-Drums', name_zh:'Roland TD-27KV 电子鼓', brand:'Roland', category:'percussion', price:15800, rating:4, desc_en:'Flagship electronic kit. Mesh heads feel like real drums, Bluetooth/USB recording, silent practice.', desc_zh:'旗舰级电子鼓，网状鼓面手感真实，内置蓝牙/USB录音，静音练习神器。', badge:'new', img:'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80', reviews:[{name:'Leo G.',stars:4,date:'Jun 2026',text:'Great electronic kit. The mesh heads feel surprisingly close to real drums.',verified:true}] },
-  { id:14, name_en:'Nord Stage 4 88 Stage Piano', name_zh:'Nord Stage 4 88 舞台电钢琴', brand:'Nord', category:'piano', price:38800, rating:5, desc_en:'Swedish flagship keyboard. Triple sound engines, FATAR weighted keys — the ultimate stage weapon.', desc_zh:'瑞典旗舰舞台键盘，三层音色引擎，FATAR全配重键盘，现场演出终极利器。', badge:'hot', img:'https://images.unsplash.com/photo-1513889961551-628c1e5e281e?w=600&q=80', reviews:[{name:'Oliver B.',stars:5,date:'May 2026',text:'The organ engine is incredible. This keyboard does everything and does it brilliantly.',verified:true}] },
-  { id:15, name_en:'Kamaka HF-3 Koa Ukulele', name_zh:'Kamaka HF-3 夏威夷相思木尤克里里', brand:'Kamaka', category:'guitar', price:8800, rating:5, desc_en:'Hawaii\'s legendary brand since 1916. Solid koa wood — sweet, warm tone like tropical breeze.', desc_zh:'夏威夷百年品牌，全单相思木，音色甜美如热带海风。收藏级品质。', badge:'vintage', img:'https://images.unsplash.com/photo-1546443964-1cf48e4e1e01?w=600&q=80', reviews:[{name:'Maya H.',stars:5,date:'Apr 2026',text:'Pure Hawaiian magic. The koa wood grain is stunning, and the sound is pure sweetness.',verified:true}] },
+  { id:1, name_en:'Yamaha F310 Acoustic Guitar (Starter Pack)', name_zh:'雅马哈 F310 原声吉他（新手套装）', brand:'Yamaha', category:'guitar', price:159, badge:'hot', img:'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=80', desc_en:'Best-selling beginner guitar worldwide. Spruce top, warm tone, includes gig bag, picks & tuner.', desc_zh:'全球销量最多的入门吉他，云杉面板，音色温暖，赠琴包+拨片+调音器。' },
+  { id:2, name_en:'Donner DUC-1 Ukulele Starter Kit', name_zh:'Donner DUC-1 尤克里里新手套装', brand:'Donner', category:'guitar', price:49, img:'https://images.unsplash.com/photo-1546443964-1cf48e4e1e01?w=600&q=80', desc_en:'Mahogany soprano ukulele. Sweet, cheerful sound. Kit includes bag, tuner, picks & online lessons.', desc_zh:'桃花心木高音尤克里里，音色甜美欢快。赠琴包+调音器+拨片+在线课程。' },
+  { id:3, name_en:'Yamaha P-145 Digital Piano', name_zh:'雅马哈 P-145 数码钢琴', brand:'Yamaha', category:'piano', price:399, badge:'hot', img:'https://images.unsplash.com/photo-1552422535-c45813c61732?w=600&q=80', desc_en:'88 weighted keys, Graded Hammer Standard action. Realistic piano feel, compact and portable.', desc_zh:'88键渐层式锤感标准键盘，真实钢琴手感，轻薄便携，适合练习和演出。' },
+  { id:4, name_en:'Aklot 5-Piece Cajon Set', name_zh:'Aklot 五件套卡洪鼓', brand:'Aklot', category:'percussion', price:79, img:'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80', desc_en:'Peruvian-style box drum. Rich bass slaps, crisp snares. Includes bag, pedal & instructional DVD.', desc_zh:'秘鲁风格木箱鼓，低音有力，军鼓声清脆。赠琴包+踏板+教学DVD。' },
+  { id:5, name_en:'Fender Squire Affinity Stratocaster Pack', name_zh:'Fender Squire Affinity Stratocaster 套装', brand:'Fender', category:'guitar', price:299, badge:'hot', img:'https://images.unsplash.com/photo-1550985616-0099ce4a5b9d?w=600&q=80', desc_en:'Complete electric guitar starter kit. HSS pickup config, included amp, strap, picks & cable.', desc_zh:'电吉他入门全套，HSS拾音器配置，含音箱+背带+拨片+连接线，到手即弹。' },
+  { id:6, name_en:'Eastar ETR-380 Student Trumpet', name_zh:'Eastar ETR-380 学生小号', brand:'Eastar', category:'wind', price:179, img:'https://images.unsplash.com/photo-1511192336575-54141c18e220?w=600&q=80', desc_en:'Brass student trumpet with gold lacquer finish. Includes mouthpiece, case, gloves & cleaning kit.', desc_zh:'黄铜学生小号，金色漆面。赠号嘴+琴盒+手套+清洁套装。' },
+  { id:7, name_en:'Yamaha YRS-314B Alto Recorder', name_zh:'雅马哈 YRS-314B 中音竖笛', brand:'Yamaha', category:'wind', price:24, img:'https://images.unsplash.com/photo-1487887235945-a955cd654d35?w=600&q=80', desc_en:'German fingering, ABS resin. Warm, accurate tone — perfect for students and beginners.', desc_zh:'德式指法，ABS树脂材质。音色温暖准确，学生和入门首选。' },
+  { id:8, name_en:'Hohner Special 20 Harmonica in C', name_zh:'Hohner Special 20 C调口琴', brand:'Hohner', category:'wind', price:42, img:'https://images.unsplash.com/photo-1573871669414-036dbf673374?w=600&q=80', desc_en:'Legendary German harmonica. Air-tight, responsive, warm tone. The go-to for blues & folk.', desc_zh:'德国传奇口琴，气密性好，响应灵敏，音色温暖，蓝调和民谣首选。' },
+  { id:9, name_en:'Cecilio CVN-300 Student Violin Outfit', name_zh:'Cecilio CVN-300 学生小提琴套装', brand:'Cecilio', category:'strings', price:139, img:'https://images.unsplash.com/photo-1609593334492-e751c3cc8474?w=600&q=80', desc_en:'Full-size 4/4 violin. Solid spruce & maple, ebony fittings. Includes bow, rosin, case & tuner.', desc_zh:'4/4全尺寸小提琴，实木云杉+枫木，乌木配件。赠琴弓+松香+琴盒+调音器。' },
+  { id:10, name_en:'Yamaha YRS-24B Soprano Recorder', name_zh:'雅马哈 YRS-24B 高音竖笛', brand:'Yamaha', category:'wind', price:12, badge:'hot', img:'https://images.unsplash.com/photo-1487887235945-a955cd654d35?w=600&q=80', desc_en:'Classic school recorder. Easy to play, clear tone, durable ABS. Most popular recorder worldwide.', desc_zh:'经典教学竖笛，易吹奏，音色清晰，ABS耐用材质，全球销量最多的竖笛。' },
+  { id:11, name_en:'Vangoa E-Bass Guitar Starter Kit', name_zh:'Vangoa 电贝司新手套装', brand:'Vangoa', category:'guitar', price:219, img:'https://images.unsplash.com/photo-1564186767635-18faf3f9eb1c?w=600&q=80', desc_en:'4-string electric bass, sunburst finish. P/J pickups, includes amp, strap, cable & tuner.', desc_zh:'4弦电贝司，日落色漆面，P/J拾音器，含音箱+背带+连接线+调音器。' },
+  { id:12, name_en:'Soundbrenner Core II Smart Metronome', name_zh:'Soundbrenner Core II 智能节拍器', brand:'Soundbrenner', category:'percussion', price:99, badge:'new', img:'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80', desc_en:'Wearable vibrating metronome + tuner. Keeps tempo through vibration — game-changer for practice.', desc_zh:'可穿戴震动节拍器+调音器二合一，通过震动感知节奏，练习神器。' },
+  { id:13, name_en:'Aroma ATD-10 Digital Metronome/Tuner', name_zh:'Aroma ATD-10 数字节拍调音器', brand:'Aroma', category:'percussion', price:18, img:'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=80', desc_en:'2-in-1 digital metronome and chromatic tuner. Clip-on design, clear LCD. Essential for every musician.', desc_zh:'节拍器+调音器二合一，夹扣设计，清晰LCD屏幕，每位音乐人必备。' },
+  { id:14, name_en:'Gear4music 7-Piece Drum Kit', name_zh:'Gear4music 七件套架子鼓', brand:'Gear4music', category:'percussion', price:349, img:'https://images.unsplash.com/photo-1461784121038-f088c6717f42?w=600&q=80', desc_en:'Complete beginner drum set. Poplar shells, brass cymbals, throne, pedals & sticks included.', desc_zh:'入门级完整架子鼓套装，杨木鼓腔，黄铜镲片，含鼓凳+踏板+鼓棒。' },
+  { id:15, name_en:'Yinfente Student Cello 4/4', name_zh:'Yinfente 4/4 学生大提琴', brand:'Yinfente', category:'strings', price:299, img:'https://images.unsplash.com/photo-1536431311809-bfdb285d0c85?w=600&q=80', desc_en:'Handcrafted solid wood cello. Spruce top, maple back, rosewood fittings. Full set with bow & case.', desc_zh:'手工实木大提琴，云杉面板+枫木背板+玫瑰木配件，全套含琴弓+琴盒。' },
 ];
 
 // ===== LOCALISED HELPERS =====
@@ -639,8 +623,6 @@ function renderProducts(filter) {
   const f = filter || currentFilter;
   const filtered = f === 'all' ? products : products.filter(p => p.category === f);
   grid.innerHTML = filtered.map(p => {
-    const avgRev = p.reviews.reduce((s,r) => s + r.stars, 0) / p.reviews.length;
-    const fullStars = Math.round(avgRev);
     return `
     <div class="product-card" onclick="quickAdd(${p.id}, event)">
       <div class="product-img-wrap">
@@ -653,10 +635,7 @@ function renderProducts(filter) {
         <div class="product-desc">${pDesc(p)}</div>
         <div class="product-footer">
           <div class="product-price">${formatPrice(p.price)}</div>
-          <div>
-            <div class="product-rating" onclick="event.stopPropagation();showReviews(${p.id})">${'★'.repeat(fullStars)}${'☆'.repeat(5-fullStars)}</div>
-            <div class="product-reviews" onclick="event.stopPropagation();showReviews(${p.id})">${p.reviews.length} ${t('review-btn')}</div>
-          </div>
+          <div></div>
         </div>
         <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})">${t('add-cart')}</button>
       </div>
@@ -722,28 +701,7 @@ function toggleCart() {
   document.getElementById('cartSidebar').classList.toggle('open');
 }
 
-// ===== REVIEWS =====
-function showReviews(pid) {
-  const p = products.find(x => x.id === pid);
-  if (!p || !p.reviews.length) return;
-  const el = document.getElementById('reviewList');
-  el.innerHTML = p.reviews.map(r => `
-    <div class="review-item">
-      <div class="review-header">
-        <div>
-          <span class="review-name">${r.name}</span>
-          ${r.verified ? `<span style="color:var(--green);font-size:11px;margin-left:6px;">✓ ${t('verified-buyer')}</span>` : ''}
-        </div>
-        <span class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</span>
-      </div>
-      <div class="review-date">${r.date}</div>
-      <div class="review-text">${r.text}</div>
-    </div>`).join('');
-  document.getElementById('reviewOverlay').classList.add('open');
-}
-function closeReview(e) { if (!e || e.target === document.getElementById('reviewOverlay')) document.getElementById('reviewOverlay').classList.remove('open'); }
-
-// ===== CHECKOUT / PAYMENT =====
+// ===== CART =====
 function checkout() {
   if (!cart.length) return;
   const total = cart.reduce((s,x) => s + x.price * x.qty, 0);
